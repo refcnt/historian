@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0e1a;
+  color: #eee;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Sidebar ────────────────────────────────────── */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  background: #0c0f20;
+  border-right: 1px solid #2a2a44;
+  padding: 18px 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sidebar-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.sidebar-subtitle {
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #2a2a44;
+  margin: 14px 0;
+}
+
+.sidebar-section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.level-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.level-btn {
+  background: #1a1a2e;
+  border: 1px solid #333;
+  color: #bbb;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.level-btn:hover {
+  background: #252540;
+  color: #eee;
+}
+
+.level-btn.active {
+  background: #6495ED22;
+  border-color: #6495ED88;
+  color: #9eb8f5;
+}
+
+.continent-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.continent-btn {
+  background: #1a1a2e;
+  border: 1px solid #2a2a44;
+  color: #aaa;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.continent-btn:hover {
+  background: #252540;
+  color: #eee;
+}
+
+.continent-btn.active {
+  background: #6495ED22;
+  border-color: #6495ED66;
+  color: #9eb8f5;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.sidebar-hint {
+  font-size: 11.5px;
+  color: #777;
+  line-height: 1.7;
+}
+
+.sidebar-hint b {
+  color: #999;
+}
+
+/* ── Sidebar toggle ─────────────────────────────── */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+  accent-color: #6495ED;
+  cursor: pointer;
+}
+
+.category-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ── Content area ───────────────────────────────── */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.map-container {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Description panel ──────────────────────────── */
+.desc-panel {
+  height: 148px;
+  flex-shrink: 0;
+  background: #090c1a;
+  border-top: 1px solid #2a2a44;
+  padding: 10px 18px 12px;
+  overflow-y: auto;
+}
+
+.desc-placeholder {
+  color: #555;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.desc-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFD166;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.desc-tags {
+  font-size: 11px;
+  font-weight: 400;
+  color: #888;
+}
+
+.desc-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+/* ── Sidebar navigation ─────────────────────────── */
+.breadcrumb {
+  font-size: 12px;
+  color: #9eb8f5;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.back-btn {
+  background: #1a1a2e;
+  border: 1px solid #2a2a44;
+  color: #aaa;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.back-btn:hover {
+  background: #252540;
+  color: #eee;
+}
+
+/* ── Description panel tabs ─────────────────────── */
+.desc-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.desc-tab-btn {
+  background: transparent;
+  border: 1px solid #2a2a44;
+  color: #888;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.desc-tab-btn:hover {
+  background: #1a1a2e;
+  color: #ccc;
+}
+
+.desc-tab-btn.active {
+  background: #6495ED22;
+  border-color: #6495ED88;
+  color: #9eb8f5;
+}
+
+/* ── MapLibre overrides ─────────────────────────── */
+.maplibregl-ctrl-bottom-left,
+.maplibregl-ctrl-bottom-right {
+  display: none;
+}
