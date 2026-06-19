@@ -12,18 +12,23 @@ export default defineConfig({
     {
       name: 'serve-data',
       configureServer(server) {
-        const parentDir = __dirname
-        const DATA_FILES = new Set(['world_110m.geojson', 'history_data.json'])
         server.middlewares.use((req, res, next) => {
-          const urlPath = (req.url ?? '').split('?')[0].slice(1)
-          if (DATA_FILES.has(urlPath)) {
-            const filePath = resolve(parentDir, urlPath)
-            if (existsSync(filePath)) {
-              res.setHeader('Content-Type', 'application/json')
-              res.setHeader('Cache-Control', 'max-age=3600')
-              createReadStream(filePath).pipe(res as any)
-              return
+          const urlPath = (req.url ?? '').split('?')[0]
+          if (!urlPath.startsWith('/examples/')) return next()
+          const filePath = resolve(__dirname, urlPath.slice(1))
+          if (existsSync(filePath)) {
+            const ext = filePath.split('.').pop() ?? ''
+            const mime: Record<string, string> = {
+              json: 'application/json',
+              svg:  'image/svg+xml',
+              png:  'image/png',
+              jpg:  'image/jpeg',
+              jpeg: 'image/jpeg',
             }
+            res.setHeader('Content-Type', mime[ext] ?? 'application/octet-stream')
+            res.setHeader('Cache-Control', 'no-cache')
+            createReadStream(filePath).pipe(res as any)
+            return
           }
           next()
         })

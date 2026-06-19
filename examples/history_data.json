@@ -1,0 +1,321 @@
+{
+  "type": "geo",
+  "info": {
+    "europe": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "Europe in the 1400s is caught between catastrophe and rebirth. The Black Death (1347–51) killed a third of the population, reshaping labor, religion, and politics. The Hundred Years' War ends in 1453 as England loses France. That same year, Ottoman Sultan Mehmed II conquers Constantinople, ending the 1,100-year Byzantine Empire and shocking Christendom. Meanwhile the Italian Renaissance explodes: Florence under the Medicis produces Donatello, Brunelleschi, Botticelli, and the young Leonardo da Vinci. Gutenberg's printing press (c.1450) begins democratizing knowledge. Portugal, under Prince Henry the Navigator, systematically explores the African coast. By 1492 Spain completes the Reconquista and sends Columbus west." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Fall of Constantinople 1453", "End of Hundred Years War 1453", "Gutenberg press c.1450", "Wars of the Roses 1455–1485", "Portuguese reach Guinea 1444", "Medici banking peak", "Spanish Reconquista ends 1492"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Ottoman Empire", "Portugal", "Republic of Venice", "France", "England", "Florence", "Holy Roman Empire"] }] }
+      ]
+    },
+    "asia": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "Asia in the 1400s is home to the world's largest economies and most sophisticated cultures. Ming China under the Yongle and Xuande emperors deploys Zheng He's colossal treasure fleets — 300 ships, 28,000 men — reaching Arabia and East Africa before abruptly halting in 1433. The Great Wall is massively expanded. In Korea, King Sejong commissions the Hangul alphabet (1443), one of history's great acts of deliberate linguistic design. In Central Asia, the Timurid court at Samarkand rivals Florence as a center of astronomy, poetry, and miniature painting. Japan's Muromachi shogunate produces Zen gardens, Noh theater, and the tea ceremony before fracturing in the Onin War (1467). The Delhi Sultanate collapses into the Lodi dynasty, and Southeast Asia's great Majapahit empire begins its terminal decline." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Zheng He voyages 1405–1433", "Yongle Emperor moves capital to Beijing 1421", "Hangul alphabet 1443", "Ulugh Beg observatory Samarkand 1428", "Onin War Japan 1467", "Majapahit decline 1478"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Ming China", "Timurid Empire", "Joseon Korea", "Muromachi Japan", "Delhi Sultanate", "Majapahit Empire"] }] }
+      ]
+    },
+    "middle_east": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "The Middle East in the 1400s is dominated by the meteoric rise of the Ottoman Empire. Mehmed II ('the Conqueror') takes Constantinople in 1453 with 80,000 troops and 70 cannons, ending the Eastern Roman Empire after 1,100 years. The Ottomans then roll into the Balkans, taking Serbia, Bosnia, and threatening Hungary. Mamluk Egypt controls the lucrative Red Sea spice route and remains a rival power. The Timurid legacy in Persia fades as the Aq Qoyunlu (White Sheep) Turkmen federation rises under Uzun Hasan. The region controls the chokepoints of world trade — the Silk Road terminus, the Red Sea narrows, and the Bosphorus — giving it outsized global influence." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Fall of Constantinople 1453", "Ottoman conquest of Serbia 1459", "Ottomans take Trebizond 1461", "Aq Qoyunlu defeats Timurids 1469", "Mamluk–Ottoman cold war", "Silk Road disruption raises spice prices in Europe"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Ottoman Empire", "Mamluk Sultanate (Egypt)", "Aq Qoyunlu", "Timurid remnants in Persia"] }] }
+      ]
+    },
+    "africa": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "Africa in the 1400s is far from the peripheral continent European maps suggest. The Songhai Empire displaces Mali as West Africa's hegemon, with Timbuktu's Sankore University drawing 25,000 scholars — more than Oxford at the time. The Ethiopian Emperor Zara Yaqob (r.1434–1468) runs a sophisticated Christian kingdom with diplomatic ties to Europe. East Africa's Swahili city-states — Kilwa, Mombasa, Malindi — are cosmopolitan Islamic trading hubs exporting gold and ivory to Arabia, India, and even China. The Kongo Kingdom consolidates in Central Africa with complex governance. In 1444, Portuguese ships bring the first enslaved West Africans to Lisbon, beginning one of history's darkest chapters." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Songhai expands under Sunni Ali from 1464", "Timbuktu at intellectual peak", "Portuguese reach Senegal 1444, begin slave trade", "Ethiopian council at Florence 1441", "Zheng He fleet visits Malindi 1418", "Kongo Kingdom founded ~1400"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Songhai Empire", "Mali Empire (declining)", "Ethiopian Empire", "Swahili City-States (Kilwa, Mombasa)", "Kongo Kingdom"] }] }
+      ]
+    },
+    "north_america": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "North America in the 1400s is dominated by the Aztec Triple Alliance, the most powerful state in Mesoamerica. Their island capital Tenochtitlan has 200,000 residents — bigger than any European city — sustained by a vast tribute network. The Maya Post-Classic period fragments after the collapse of Mayapán (1441). Further north, the Iroquois Confederacy codifies its Great Law of Peace. The Mississippian mound-builder cultures are in decline after Cahokia's peak, while Great Plains and Pacific Coast peoples maintain rich independent traditions." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Aztec Triple Alliance formed 1428", "Tenochtitlan peaks ~200,000 pop.", "Mayapán collapses 1441", "Iroquois Confederacy founded ~1450", "Mississippian cultures decline"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Aztec Triple Alliance", "Maya city-states", "Iroquois Confederacy", "Mississippian cultures"] }] }
+      ]
+    },
+    "south_america": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "South America in the 1400s is defined by the explosive rise of the Inca Empire. Under Pachacuti (r.1438–1471) a small Andean kingdom becomes the largest empire in the Americas — 4,000 km along the spine of the Andes. Machu Picchu is built as a royal estate (~1450). The Qhapaq Ñan road network (40,000 km) unifies diverse peoples. In the Amazon basin, large sedentary societies with sophisticated agriculture thrive largely unknown to the outside world. The Andean cultures of Chimú, Tiwanaku, and others are absorbed or displaced by Inca expansion." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Inca Pachacuti expands empire 1438–1471", "Machu Picchu constructed ~1450", "Chimú kingdom conquered by Inca 1470", "Qhapaq Ñan road network complete", "Amazon cultures flourish"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Inca Empire (Tawantinsuyu)", "Chimú Kingdom (until 1470)", "Amazonian societies"] }] }
+      ]
+    },
+    "oceania": {
+      "tabs": [
+        { "title": "Summary",    "content": [{ "type": "text", "text": "Oceania in the 1400s represents the completion of the greatest maritime migration in human history. Polynesian navigators, using stars, ocean swells, and bird flight to navigate, had settled every habitable Pacific island over the preceding centuries — Hawaii, Easter Island, New Zealand. Māori culture in New Zealand develops pa (fortified villages), distinctive carving traditions, and inter-tribal exchange networks. Aboriginal Australians maintain sophisticated seasonal land management, ceremony cycles, and long-distance trade in ochre, shells, and stone. The Pacific remains entirely isolated from the cataclysms reshaping Eurasia and the Americas." }] },
+        { "title": "Key Events", "content": [{ "type": "list", "items": ["Polynesian settlement of Pacific complete", "Māori develop pa fortifications", "Aboriginal fire-stick farming reshapes landscapes", "Pacific navigation traditions peak", "No contact with Old World or Americas"] }] },
+        { "title": "Powers",     "content": [{ "type": "list", "items": ["Māori chiefdoms (New Zealand)", "Aboriginal nations (Australia)", "Polynesian chiefdoms (Hawaii, Tonga, Samoa)"] }] }
+      ]
+    },
+    "portugal": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Portugal punches far above its weight in the 1400s. Prince Henry the Navigator (1394–1460) runs a state-funded exploration program from Sagres, financing systematic voyages down the African coast. Portuguese cartographers develop new maps; shipbuilders perfect the agile caravel. By 1444 Nuno Tristão reaches Senegal; by 1456 Diogo Gomes reaches Cape Verde. The voyages have a dark side: 1444 sees the first large-scale slave auction in Lagos. By 1488 Bartolomeu Dias rounds the Cape of Good Hope, opening the sea route to India." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Kingdom"], ["Population", "1.2M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "castile-aragon": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The marriage of Isabella I of Castile and Ferdinand II of Aragon in 1469 unites the Iberian crowns, creating the nucleus of modern Spain. The Spanish Inquisition is established in 1478 to enforce Catholic orthodoxy. The centuries-long Reconquista concludes in 1492 when Granada — the last Muslim kingdom in Iberia — falls. That same year, Columbus sails west under Spanish sponsorship. The expulsion of Jews (1492) and later Moors follows. Spain stands on the threshold of becoming a global empire." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Kingdom"], ["Population", "7M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "ottoman-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Mehmed II (r.1444–1446, 1451–1481) reshapes world history by conquering Constantinople on May 29, 1453, with a 13-week siege using massive Hungarian-cast cannons. He renames it Istanbul and makes it his capital. The Byzantine Empire — direct heir of Rome — ends after 1,100 years. Mehmed goes on to conquer Serbia (1459), the Peloponnese (1460), Trebizond (1461), Bosnia (1463), and the Crimea (1475). He patronizes Greek scholars, collects manuscripts, and commissions his own portrait from Gentile Bellini. The Ottoman Empire becomes the dominant power between Europe and Asia." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "12M"], ["Region", "Middle East"]] }] }
+      ]
+    },
+    "republic-of-venice": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Venice in the 1400s is the wealthiest city in Europe, controlling the eastern Mediterranean spice trade through its network of ports from Crete to Cyprus to Alexandria. The Arsenal shipyard can launch a fully equipped war galley in a single day. Venetian merchants live throughout the Levant under treaty protection. The fall of Constantinople (1453) is an economic catastrophe: Ottoman tolls strangle the Silk Road, driving up spice prices and pushing Portugal and Spain to find sea routes. Venice fights four Ottoman wars this century, gradually losing territory." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Republic"], ["Population", "1.5M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "florence": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Florence under the Medici banking dynasty is the cultural capital of the world in the 1400s. Cosimo de' Medici (r.1434–1464) funds Brunelleschi's dome for Santa Maria del Fiore (completed 1436), Donatello's sculptures, and the Platonic Academy. Lorenzo 'the Magnificent' (r.1469–1492) patronizes Botticelli, the young Michelangelo, and Leonardo da Vinci. The invention of linear perspective by Brunelleschi transforms art. Florence also hosts the Council of 1439, attempting to reunite Eastern and Western Christianity, and welcomes Ethiopian and Byzantine scholars." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Republic"], ["Population", "0.8M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "france": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "France emerges from the Hundred Years' War (1337–1453) as a centralized monarchy. Joan of Arc's campaigns (1429–1431) — she lifts the siege of Orléans and crowns Charles VII at Reims before being captured and burned at 19 — become the founding myth of French nationhood. Charles VII reforms the army with a permanent professional force, ending reliance on feudal levies. Louis XI (r.1461–1483), 'the Spider King,' outmaneuvers the powerful Duchy of Burgundy through diplomacy and occasional assassination, consolidating royal authority." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Kingdom"], ["Population", "15M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "england": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "England spends the 1400s tearing itself apart. The Wars of the Roses (1455–1487) pit the House of Lancaster (red rose) against York (white rose) in a dynastic civil war that kills two kings and executes nobles by the dozen. Henry V's great French conquests collapse; by 1453 England holds only Calais. The Yorkist Edward IV brings stability, but Richard III's seizure of the crown triggers Henry Tudor's invasion. Henry VII (r.1485–1509) founds the Tudor dynasty, begins consolidating royal power, and sponsors John Cabot's 1497 voyage to North America." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Kingdom"], ["Population", "3M"], ["Region", "Europe"]] }] }
+      ]
+    },
+    "ming-china": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Ming China is the world's largest economy, producing half the world's silver-equivalent GDP. The Yongle Emperor (r.1402–1424) moves the capital to Beijing, begins the Forbidden City (completed 1420), and commissions Zheng He's seven treasure fleet voyages (1405–1433) — the largest wooden ships ever built. After Zheng He, China turns inward: overseas voyages are banned and records burned. The Xuande Emperor (r.1425–1435) oversees a cultural golden age of porcelain and painting. The Great Wall is massively rebuilt in brick. By century's end, 65–80 million people live under Ming governance." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "70M"], ["Region", "Asia"]] }] }
+      ]
+    },
+    "timurid-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "After Timur's (Tamerlane's) death in 1405, his sons divide the empire. Shah Rukh (r.1409–1447) rules from Herat and presides over a cultural renaissance that rivals Italy. His son Ulugh Beg builds the finest astronomical observatory of the age in Samarkand (1428), calculating star positions accurate to within a minute of arc — not improved upon for 200 years. Persian miniature painting, architecture with geometric tilework, and poetry flourish. The Timurid court corresponds with Chinese emperors and Italian merchants. The empire fragments after 1447, but its cultural legacy passes to the Mughals." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "5M"], ["Region", "Asia"]] }] }
+      ]
+    },
+    "joseon-korea": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Joseon dynasty (founded 1392) consolidates Korea under Confucian governance. King Sejong the Great (r.1418–1450) is one of history's most remarkable rulers: he commissions the Hangul phonetic alphabet (1443) specifically to help common people read, supervises advances in astronomy, agriculture, and medicine, and oversees the invention of the world's first rain gauge (1441). The Hall of Worthies (Jiphyeonjeon) functions as a royal research institute. Joseon operates as a loyal Ming tributary while developing a distinct Korean culture and bureaucratic system." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Kingdom"], ["Population", "7M"], ["Region", "Asia"]] }] }
+      ]
+    },
+    "muromachi-japan": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Ashikaga Shogunate rules Japan from Kyoto in an age of contradictions: exquisite culture and brutal violence coexist. Zen Buddhism inspires the tea ceremony (chado), ink painting (sumi-e), Noh theater, and the rock gardens of Ryoan-ji. The Kinkaku-ji (Golden Pavilion, 1397) is built. Trade with Ming China resumes under the tally system. But beneath the refinement, Japan is fragmenting: the Onin War (1467–1477) destroys Kyoto and triggers the Sengoku ('Warring States') period, a century of civil war between hundreds of feudal lords." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Shogunate"], ["Population", "10M"], ["Region", "Asia"]] }] }
+      ]
+    },
+    "delhi-sultanate": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Northern India in the 1400s is recovering from Timur's devastating 1398 sack of Delhi, which killed an estimated 100,000 people and left the city depopulated for years. The Sayyid dynasty rules a much-reduced sultanate before the Afghan Lodi dynasty takes power in 1451. Regional kingdoms — Vijayanagara in the south, the Bahmani Sultanate in the Deccan, Gujarat, Malwa, Bengal — assert independence. Despite the political chaos, Indian Ocean trade flourishes: Calicut on the Malabar Coast is the world's greatest spice emporium, visited by Zheng He and, by century's end, Vasco da Gama." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Sultanate"], ["Population", "20M"], ["Region", "Asia"]] }] }
+      ]
+    },
+    "songhai-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Songhai Empire becomes the largest in African history under Sunni Ali (r.1464–1492). It controls the entire Niger Bend, the trans-Saharan trade in gold and salt, and the great cities of Timbuktu and Djenné. Timbuktu's Sankore mosque-university has 25,000 students and over 700,000 manuscripts — more books than any institution in Europe at the time. Scholars study theology, law, mathematics, astronomy, and medicine. Salt from the Saharan mines of Taghaza and gold from the mines of Bambuk and Bure flow north to Morocco and Egypt, financing the Mediterranean economy." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "5M"], ["Region", "Africa"]] }] }
+      ]
+    },
+    "mali-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Mali Empire — once so wealthy that Mansa Musa's 1324 pilgrimage to Mecca, bringing 60,000 people and 80 camels laden with gold, crashed Egyptian gold prices for a decade — is in steep decline by the 1400s. Internal succession wars weaken central authority. The Songhai, once a vassal state, conquers Timbuktu in 1468. The Tuareg take the northern cities. Mali fragments into smaller chieftaincies, though its cultural and commercial legacy persists in the Mande-speaking peoples across West Africa." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "4M"], ["Region", "Africa"]] }] }
+      ]
+    },
+    "ethiopian-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Emperor Zara Yaqob (r.1434–1468) rules medieval Ethiopia at its peak — a Christian highland empire with sophisticated theology, religious art, and diplomatic reach. He sends ambassadors to the Council of Florence in 1441, where Ethiopian scholars meet Italian humanists and Byzantine refugees. European maps begin including Ethiopia (as 'the Kingdom of Prester John'). Zara Yaqob codifies church law, builds monasteries, and expands territory. Ethiopian Orthodox Christianity — with its distinctive illuminated manuscripts, rock-hewn churches, and Ark of the Covenant traditions — is a living civilization entirely outside European awareness." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "3M"], ["Region", "Africa"]] }] }
+      ]
+    },
+    "swahili-city-states": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Swahili Coast — a string of Islamic city-states from Mogadishu to Mozambique — is one of the 1400s' great commercial civilizations. Kilwa Kisiwani, described by Ibn Battuta as one of the most beautiful cities in the world, exports gold from Zimbabwe's interior mines. Mombasa, Malindi, and Zanzibar handle ivory, enslaved people, iron, and tortoiseshell in exchange for Indian cotton, Chinese porcelain, and Persian metalware. Zheng He's fleet visits Malindi in 1418, bringing a giraffe back to the Chinese emperor. Portuguese explorer Vasco da Gama arrives at Malindi in 1498, hiring a local navigator to guide him to India." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "City-States"], ["Population", "0.5M"], ["Region", "Africa"]] }] }
+      ]
+    },
+    "aztec-triple-alliance": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Aztec Triple Alliance (Tenochtitlan, Texcoco, Tlacopan), formed in 1428, reaches peak power under Itzcoatl and Moctezuma I (r.1440–1469). Their island capital Tenochtitlan — built on artificial islands in Lake Texcoco, connected by causeways, supplied by an aqueduct — has 200,000–300,000 inhabitants, larger than any European city. Tribute flows in from 400+ conquered cities: cotton, cacao, jade, feathers, rubber balls, jaguar skins. The Aztec calendar, astronomical knowledge, and ritual cycle represent a sophisticated intellectual tradition." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "5–6M"], ["Region", "North America"]] }] }
+      ]
+    },
+    "inca-empire": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Inca Empire (Tawantinsuyu, 'the Four Regions') undergoes its greatest expansion under Sapa Inca Pachacuti (r.1438–1471). From a small Cusco kingdom, he builds an empire stretching 4,000 km along the Andes. Machu Picchu is constructed ~1450 as a royal estate. The Qhapaq Ñan road system — 40,000 km of engineered roads with rope bridges over Andean gorges — allows armies and goods to move at relay-runner speed. Quipu knotted strings serve as administrative records." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Empire"], ["Population", "10–12M"], ["Region", "South America"]] }] }
+      ]
+    },
+    "maya-city-states": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "The Maya Post-Classic period sees dramatic political fragmentation. Mayapán, the dominant northern lowland city that had enforced unity for 200 years, collapses in a civil war around 1441 when the Cocom ruling family is massacred by rival Xiu lords. Dozens of independent city-states emerge across Yucatán, each controlling territory of 10,000–50,000 people. Despite the political chaos, Maya intellectual traditions survive intact: the 365-day solar calendar (haab') and 260-day ritual calendar (tzolk'in) are maintained, along with sophisticated astronomy, hieroglyphic writing, and codex books." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "City-States"], ["Population", "2M"], ["Region", "North America"]] }] }
+      ]
+    },
+    "maori-new-zealand": {
+      "tabs": [
+        { "title": "History", "content": [{ "type": "text", "text": "Māori culture in New Zealand in the 1400s is developing the distinctive traditions that will define it for centuries. Pa — elaborately constructed hilltop fortifications with palisades, terraces, and food storage — become widespread as inter-tribal competition increases. Whakairo (wood carving) and tā moko (tattooing) reach high levels of artistry. Long-distance canoe voyaging connects North and South Island communities. The moa (giant flightless bird) is hunted to extinction by this century, forcing adaptation of food systems." }] },
+        { "title": "Facts",   "content": [{ "type": "table", "headers": [], "rows": [["Type", "Chiefdoms"], ["Population", "100,000"], ["Region", "Oceania"]] }] }
+      ]
+    },
+    "silk-road":               { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "The ancient overland Silk Road connecting China to Europe via Central Asia and Persia. Ottoman conquest of Constantinople (1453) raises tolls dramatically, driving European powers to seek sea routes around Africa to reach Asian spices." }] }] },
+    "indian-ocean-trade":      { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Monsoon-driven maritime network connecting India, Arabia, and East Africa. Dhows sail southwest on winter monsoon, return northeast on summer monsoon. Moves pepper, cotton, porcelain, gold, and ivory. Zheng He's fleets use these routes." }] }] },
+    "trans-saharan-routes":    { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Camel caravans cross the Sahara carrying West African gold and salt north to Mediterranean and Middle Eastern markets. Timbuktu and Djenné are the key southern termini. This trade makes North African sultans wealthy and funds Mediterranean economies." }] }] },
+    "mediterranean-trade":     { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Venice and Genoa dominate sea trade between Europe and the Levant. European silver and wool flow east; Asian spices, silk, and luxury goods flow west. Ottoman capture of Constantinople disrupts but does not end this trade." }] }] },
+    "portuguese-exploration":  { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Portugal systematically maps the African coast under Prince Henry's direction. Each voyage extends further south. By 1444 they reach Senegal; by 1456 Cape Verde; by 1488 Cape of Good Hope. This will eventually connect Europe directly to Asia by sea." }] }] },
+    "ottoman-expansion-west":  { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "After Constantinople (1453), Ottoman armies push deep into the Balkans: Serbia 1459, Bosnia 1463, Albania (against Skanderbeg). Europe is terrified. Pope Calixtus III calls for crusade. The Ottoman advance eventually reaches Vienna's gates." }] }] },
+    "zheng-he-voyages":        { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Seven voyages (1405–1433) of China's treasure fleets — the largest wooden ships ever built, 450 feet long — reach Arabia, East Africa, and possibly Australia. After Zheng He's death (1433) China bans overseas voyages and burns the records." }] }] },
+    "venice-alexandria-spice-route":  { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "The busiest commercial sea lane of the medieval world. Venetian galleys carry silver and cloth east; return laden with pepper, cinnamon, nutmeg, and silk via Mamluk Alexandria. A single voyage's profit could fund a palace." }] }] },
+    "portugal-west-africa":           { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Portuguese caravels methodically chart the African coast. In 1444 the first enslaved Africans arrive in Lagos, Portugal. By 1456 Cape Verde is reached. Gold and enslaved people begin flowing to Europe, financing further exploration." }] }] },
+    "timurid-ming-embassies":         { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Regular embassies between Samarkand and Beijing exchange astronomical knowledge, artists, and luxury goods. The Yongle Emperor receives a giraffe from Malindi via Timurid intermediaries — displayed as a qilin (mythical good-omen creature)." }] }] },
+    "ming-korea-tributary":           { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Joseon Korea sends regular tribute missions to Beijing, receiving in return silk, porcelain, and formal recognition. The tributary relationship provides military protection and trade access. Joseon scholars travel to China to study and copy texts." }] }] },
+    "trans-saharan-gold":             { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "West African gold from mines around Bambuk and Bure crosses the Sahara to Tunis and Tripoli, where Venetian and Genoese merchants buy it for European markets. Two-thirds of Europe's gold supply comes from West Africa." }] }] },
+    "indian-ocean-spice-network":     { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Indian merchants and Arab dhow sailors dominate the Indian Ocean. Calicut (Kozhikode) on India's Malabar Coast is the world's busiest spice port. Pepper, cardamom, and cinnamon move west to Arabia and East Africa; African gold and ivory move east." }] }] },
+    "ottoman-balkans-conquest":       { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Ottoman military expansion into the Balkans sends waves of Greek, Serbian, and Albanian refugees west, carrying classical manuscripts and knowledge that fuel the Renaissance. Fear of Ottoman advance drives European states to seek allies and alternative trade routes." }] }] },
+    "aztec-maya-trade":               { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Mesoamerican long-distance trade networks move obsidian from Mexican volcanoes, cacao from lowland plantations, cotton textiles, jade, turquoise, and exotic feathers across thousands of kilometers between Aztec and Maya markets." }] }] },
+    "ethiopian-florence-diplomacy":   { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Ethiopian delegates attend the Council of Florence (1439–1441), meeting Italian humanists and Byzantine scholars. This sparks European fascination with Ethiopia as 'Prester John's kingdom.' Ethiopian manuscripts and Ge'ez scripts circulate in European scholarly networks." }] }] },
+    "inca-road-network":              { "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "No direct contact existed between Inca and Aztec civilizations, but both independently operated sophisticated internal exchange systems. The Inca Qhapaq Ñan road (40,000 km) and Aztec pochteca merchant guilds represent parallel achievements in pre-Columbian commerce." }] }] }
+  },
+
+  "nodes": [
+    {
+      "id": "europe", "name": "Europe",
+      "location": { "lat": 52.0, "lon": 15.0, "zoom": 4 },
+      "color": "#6495ED",
+      "children": [
+        { "id": "portugal",           "name": "Portugal",           "location": { "lat": 39.5, "lon": -8.0,  "zoom": 5, "iso": ["PRT"] },                                                                             "color": "#E85D04" },
+        { "id": "castile-aragon",     "name": "Castile & Aragon",   "location": { "lat": 40.4, "lon": -3.7,  "zoom": 5, "iso": ["ESP"] },                                                                             "color": "#F4A261" },
+        { "id": "ottoman-empire",     "name": "Ottoman Empire",     "location": { "lat": 39.0, "lon": 32.0,  "zoom": 4, "iso": ["TUR","GRC","BGR","SRB","BIH","ALB","MKD","ROU","IRQ","SYR","LBN","ISR","PSE","JOR"] }, "color": "#DC2F02" },
+        { "id": "republic-of-venice", "name": "Republic of Venice", "location": { "lat": 45.4, "lon": 12.3,  "zoom": 6, "iso": ["HRV","CYP"] },                                                                      "color": "#9B5DE5" },
+        { "id": "florence",           "name": "Florence",           "location": { "lat": 43.8, "lon": 11.2,  "zoom": 6, "iso": ["ITA"] },                                                                             "color": "#1982C4" },
+        { "id": "france",             "name": "France",             "location": { "lat": 46.2, "lon": 2.2,   "zoom": 5, "iso": ["FRA"] },                                                                             "color": "#4B7BEC" },
+        { "id": "england",            "name": "England",            "location": { "lat": 52.4, "lon": -1.5,  "zoom": 5, "iso": ["GBR","IRL"] },                                                                      "color": "#A23B72" }
+      ]
+    },
+    {
+      "id": "asia", "name": "Asia",
+      "location": { "lat": 35.0, "lon": 95.0, "zoom": 3 },
+      "color": "#FFA500",
+      "children": [
+        { "id": "ming-china",      "name": "Ming China",      "location": { "lat": 32.0, "lon": 110.0, "zoom": 4, "iso": ["CHN","TWN"] },              "color": "#FF6B6B" },
+        { "id": "timurid-empire",  "name": "Timurid Empire",  "location": { "lat": 37.0, "lon": 63.0,  "zoom": 4, "iso": ["UZB","TJK","AFG","TKM"] }, "color": "#FFD166" },
+        { "id": "joseon-korea",    "name": "Joseon Korea",    "location": { "lat": 37.5, "lon": 127.0, "zoom": 5, "iso": ["PRK","KOR"] },              "color": "#06D6A0" },
+        { "id": "muromachi-japan", "name": "Muromachi Japan", "location": { "lat": 35.7, "lon": 136.0, "zoom": 5, "iso": ["JPN"] },                   "color": "#EF476F" },
+        { "id": "delhi-sultanate", "name": "Delhi Sultanate", "location": { "lat": 28.6, "lon": 77.2,  "zoom": 4, "iso": ["IND","PAK","BGD"] },       "color": "#F77F00" }
+      ]
+    },
+    {
+      "id": "middle_east", "name": "Middle East",
+      "location": { "lat": 30.0, "lon": 42.0, "zoom": 4 },
+      "color": "#DC503C",
+      "children": []
+    },
+    {
+      "id": "africa", "name": "Africa",
+      "location": { "lat": 5.0, "lon": 20.0, "zoom": 3 },
+      "color": "#32B464",
+      "children": [
+        { "id": "songhai-empire",      "name": "Songhai Empire",      "location": { "lat": 15.5, "lon": 0.0,   "zoom": 4, "iso": ["MLI","NER","BFA"] }, "color": "#2DC653" },
+        { "id": "mali-empire",         "name": "Mali Empire",         "location": { "lat": 12.0, "lon": -8.0,  "zoom": 5, "iso": ["GIN","GMB","SEN"] }, "color": "#80B918" },
+        { "id": "ethiopian-empire",    "name": "Ethiopian Empire",    "location": { "lat": 9.0,  "lon": 38.7,  "zoom": 5, "iso": ["ETH","ERI"] },       "color": "#FCBF49" },
+        { "id": "swahili-city-states", "name": "Swahili City-States", "location": { "lat": -4.0, "lon": 39.6, "zoom": 5, "iso": ["KEN","TZA","MOZ"] }, "color": "#00B4D8" }
+      ]
+    },
+    {
+      "id": "north_america", "name": "North America",
+      "location": { "lat": 23.0, "lon": -100.0, "zoom": 3 },
+      "color": "#B464DC",
+      "children": [
+        { "id": "aztec-triple-alliance", "name": "Aztec Triple Alliance", "location": { "lat": 19.4, "lon": -99.1,  "zoom": 5, "iso": ["MEX"] },            "color": "#C77DFF" },
+        { "id": "maya-city-states",      "name": "Maya City-States",      "location": { "lat": 17.0, "lon": -89.0,  "zoom": 5, "iso": ["GTM","BLZ","HND"] }, "color": "#3A0CA3" }
+      ]
+    },
+    {
+      "id": "south_america", "name": "South America",
+      "location": { "lat": -15.0, "lon": -60.0, "zoom": 3 },
+      "color": "#E040A0",
+      "children": [
+        { "id": "inca-empire", "name": "Inca Empire", "location": { "lat": -13.5, "lon": -72.0, "zoom": 4, "iso": ["PER","BOL","ECU","CHL","ARG"] }, "color": "#E040FB" }
+      ]
+    },
+    {
+      "id": "oceania", "name": "Oceania",
+      "location": { "lat": -25.0, "lon": 140.0, "zoom": 3 },
+      "color": "#00C8C8",
+      "children": [
+        { "id": "maori-new-zealand", "name": "Māori New Zealand", "location": { "lat": -40.9, "lon": 174.9, "zoom": 5, "iso": ["NZL"] }, "color": "#4CC9F0" }
+      ]
+    }
+  ],
+
+  "connections": [
+    {
+      "id": "silk-road", "name": "Silk Road",
+      "from": "asia", "to": "europe", "color": "#FFA040",
+      "children": [
+        { "id": "timurid-ming-embassies", "name": "Timurid–Ming Embassies", "from": "timurid-empire", "to": "ming-china",  "color": "#A0FF80" },
+        { "id": "ming-korea-tributary",   "name": "Ming–Korea Tributary",   "from": "ming-china",    "to": "joseon-korea", "color": "#A0FF80" }
+      ]
+    },
+    {
+      "id": "indian-ocean-trade", "name": "Indian Ocean Trade",
+      "from": "asia", "to": "africa", "color": "#FFA040",
+      "children": [
+        { "id": "indian-ocean-spice-network", "name": "Indian Ocean Spice Network", "from": "delhi-sultanate", "to": "swahili-city-states", "color": "#FFA040" }
+      ]
+    },
+    {
+      "id": "trans-saharan-routes", "name": "Trans-Saharan Routes",
+      "from": "africa", "to": "middle_east", "color": "#FFA040",
+      "children": [
+        { "id": "trans-saharan-gold", "name": "Trans-Saharan Gold", "from": "songhai-empire", "to": "florence", "color": "#FFA040" }
+      ]
+    },
+    {
+      "id": "mediterranean-trade", "name": "Mediterranean Trade",
+      "from": "europe", "to": "middle_east", "color": "#FFA040",
+      "children": [
+        { "id": "venice-alexandria-spice-route", "name": "Venice–Alexandria Spice Route", "from": "republic-of-venice", "to": "ottoman-empire", "color": "#FFA040" },
+        { "id": "ethiopian-florence-diplomacy",  "name": "Ethiopian–Florence Diplomacy",  "from": "ethiopian-empire",    "to": "florence",       "color": "#A0FF80" }
+      ]
+    },
+    {
+      "id": "portuguese-exploration", "name": "Portuguese Exploration",
+      "from": "europe", "to": "africa", "color": "#40CFFF",
+      "children": [
+        { "id": "portugal-west-africa", "name": "Portugal–West Africa", "from": "portugal", "to": "songhai-empire", "color": "#40CFFF" }
+      ]
+    },
+    {
+      "id": "ottoman-expansion-west", "name": "Ottoman Expansion West",
+      "from": "middle_east", "to": "europe", "color": "#FF5050",
+      "children": [
+        { "id": "ottoman-balkans-conquest", "name": "Ottoman–Balkans Conquest", "from": "ottoman-empire", "to": "france", "color": "#FF5050" }
+      ]
+    },
+    {
+      "id": "zheng-he-voyages", "name": "Zheng He Voyages",
+      "from": "asia", "to": "africa", "color": "#40CFFF"
+    },
+    {
+      "id": "aztec-maya-trade", "name": "Aztec–Maya Trade",
+      "from": "aztec-triple-alliance", "to": "maya-city-states", "color": "#FFA040"
+    },
+    {
+      "id": "inca-road-network", "name": "Inca Road Network",
+      "from": "inca-empire", "to": "aztec-triple-alliance", "color": "#FFA040"
+    }
+  ]
+}

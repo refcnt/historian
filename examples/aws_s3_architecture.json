@@ -1,0 +1,139 @@
+{
+  "type": "canvas",
+  "name": "AWS S3 Architecture",
+  "algo": "hierarchical",
+  "info": {
+    "layer-api": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Handles all incoming S3 API requests. Authenticates, validates, and routes to the appropriate internal services." }] }]
+    },
+    "layer-auth": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Manages identity and access management. Validates credentials, checks bucket policies, and enforces ACLs." }] }]
+    },
+    "layer-global": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Maintains the global namespace across all regions. Ensures consistent bucket/object naming and cross-region coordination." }] }]
+    },
+    "layer-core": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Core data storage and lifecycle management. Handles object persistence, versioning, and tier transitions." }] }]
+    },
+    "layer-events": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Event notification and usage metering. Emits S3 events to SNS/SQS/Lambda and tracks per-bucket usage." }] }]
+    },
+    "layer-data": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Persistent data stores backing all S3 services. Stores object metadata, bucket configuration, and usage records." }] }]
+    },
+    "api-gateway": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Public-facing S3 REST API endpoint. Terminates TLS, parses the request path, and dispatches to the Request Router." }] }]
+    },
+    "request-router": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Routes validated requests to the appropriate backend service based on the operation type (GET, PUT, DELETE, LIST)." }] }]
+    },
+    "auth-service": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Validates AWS Signature v4 credentials and evaluates IAM policies." }] }]
+    },
+    "bucket-policy-engine": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Evaluates bucket policies, ACLs, and Object Lock conditions for every request." }] }]
+    },
+    "namespace-service": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Maintains the global flat object namespace. Resolves bucket ownership and performs cross-region lookups." }] }]
+    },
+    "replication-coordinator": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Coordinates cross-region replication (CRR) and same-region replication (SRR) jobs." }] }]
+    },
+    "storage-engine": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Low-level object storage engine. Writes objects to distributed storage nodes with erasure coding." }] }]
+    },
+    "lifecycle-manager": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Applies S3 Lifecycle rules: transitions objects to Glacier, expires old versions, aborts multipart uploads." }] }]
+    },
+    "versioning-service": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Manages object versioning. Maintains the version list and enforces Object Lock retention periods." }] }]
+    },
+    "event-notifier": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Publishes S3 event notifications (s3:ObjectCreated, s3:ObjectRemoved, etc.) to SNS, SQS, or Lambda." }] }]
+    },
+    "metering-service": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Tracks per-bucket storage usage, request counts, and data transfer for billing." }] }]
+    },
+    "object-metadata-db": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Stores object metadata: key, size, ETag, version ID, user-defined tags, and system metadata." }] }]
+    },
+    "bucket-config-db": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Stores bucket configuration: policies, CORS rules, logging settings, versioning state, lifecycle rules." }] }]
+    },
+    "usage-db": {
+      "tabs": [{ "title": "Info", "content": [{ "type": "text", "text": "Time-series store for per-bucket usage metrics consumed by the billing system." }] }]
+    }
+  },
+  "styles": {
+    "gateway": {
+      "icon": "/examples/icons/gateway.svg"
+    },
+    "database": {
+      "icon": "/examples/icons/database.svg"
+    },
+    "service": {
+      "icon": "/examples/icons/router.svg"
+    }
+  },
+  "nodes": [
+    {
+      "id": "layer-api",
+      "name": "API Layer",
+      "children": [
+        { "id": "api-gateway",    "name": "S3 API Gateway",  "style": "gateway" },
+        { "id": "request-router", "name": "Request Router",  "style": "service" }
+      ]
+    },
+    {
+      "id": "layer-auth",
+      "name": "Auth",
+      "children": [
+        { "id": "auth-service",         "name": "Auth Service",         "style": "service" },
+        { "id": "bucket-policy-engine", "name": "Bucket Policy Engine", "style": "service" }
+      ]
+    },
+    {
+      "id": "layer-global",
+      "name": "Global",
+      "children": [
+        { "id": "namespace-service",       "name": "Namespace Service",    "style": "service" },
+        { "id": "replication-coordinator", "name": "Replication Coord.",   "style": "service" }
+      ]
+    },
+    {
+      "id": "layer-core",
+      "name": "Core Storage",
+      "children": [
+        { "id": "storage-engine",    "name": "Storage Engine",    "style": "service" },
+        { "id": "lifecycle-manager", "name": "Lifecycle Manager", "style": "service" },
+        { "id": "versioning-service","name": "Versioning",        "style": "service" }
+      ]
+    },
+    {
+      "id": "layer-events",
+      "name": "Events & Billing",
+      "children": [
+        { "id": "event-notifier",   "name": "Event Notifier",   "style": "service" },
+        { "id": "metering-service", "name": "Metering Service", "style": "service" }
+      ]
+    },
+    {
+      "id": "layer-data",
+      "name": "Data Stores",
+      "children": [
+        { "id": "object-metadata-db", "name": "Object Metadata DB", "style": "database" },
+        { "id": "bucket-config-db",   "name": "Bucket Config DB",   "style": "database" },
+        { "id": "usage-db",           "name": "Usage DB",           "style": "database" }
+      ]
+    }
+  ],
+  "connections": [
+    { "id": "conn-api-auth",    "name": "authenticates",  "from": "layer-api",    "to": "layer-auth"   },
+    { "id": "conn-api-global",  "name": "resolves",       "from": "layer-api",    "to": "layer-global" },
+    { "id": "conn-api-core",    "name": "stores via",     "from": "layer-api",    "to": "layer-core"   },
+    { "id": "conn-auth-data",   "name": "reads policies", "from": "layer-auth",   "to": "layer-data"   },
+    { "id": "conn-core-events", "name": "triggers",       "from": "layer-core",   "to": "layer-events" },
+    { "id": "conn-core-data",   "name": "persists to",    "from": "layer-core",   "to": "layer-data"   },
+    { "id": "conn-global-data", "name": "indexes",        "from": "layer-global", "to": "layer-data"   }
+  ]
+}
