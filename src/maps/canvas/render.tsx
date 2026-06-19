@@ -209,8 +209,8 @@ export default function CanvasRenderer({
       >
         <rect
           width={w} height={h} rx={10}
-          fill={color} fillOpacity={isDim ? 0.25 : hovered ? 0.38 : 0.22}
-          stroke={color} strokeOpacity={isDim ? 0.4 : 1} strokeWidth={hovered ? 2.5 : 1.5}
+          fill={color} fillOpacity={isDim ? 0.18 : hovered ? 0.80 : 0.62}
+          stroke={color} strokeOpacity={isDim ? 0.35 : 1} strokeWidth={hovered ? 3 : 2}
         />
         <text
           x={w / 2} y={15}

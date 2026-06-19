@@ -9,5 +9,5 @@ function hashStr(s: string): number {
 
 export function colorForId(id: string): string {
   const hue = (hashStr(id) * GOLDEN_ANGLE) % 360
-  return `hsl(${Math.round(hue)}, 65%, 62%)`
+  return `hsl(${Math.round(hue)}, 80%, 62%)`
 }
