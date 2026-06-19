@@ -1,10 +1,10 @@
 import type { Node, Connection } from '../../../common/models'
 import { BaseLayout } from './base'
 import type { LayoutResult } from './base'
-import { ICON_SIZE, CHILD_LABEL, CHILD_SIZE, CHILD_COL_W, CHILD_SLOT_H, CHILD_GAP, CHILD_COLS, GROUP_PAD, GROUP_LH, groupDims } from '../constants'
+import { ICON_SIZE, CHILD_LABEL, CHILD_SIZE, CHILD_COL_W, CHILD_GAP, CHILD_COLS, GROUP_PAD, GROUP_LH, CARD_H, groupDims } from '../constants'
 
-const CANVAS_W   = 4000
-const CANVAS_H   = 3000
+const CANVAS_W   = 3000
+const CANVAS_H   = 2200
 const ITERATIONS = 400
 const MARGIN     = 40
 
@@ -147,8 +147,8 @@ export class HierarchicalLayout extends BaseLayout {
         const col = i % cols
         const row = Math.floor(i / cols)
         assign(child, {
-          x: center.x - w / 2 + GROUP_PAD + col * CHILD_COL_W + CHILD_SIZE / 2,
-          y: center.y - h / 2 + GROUP_LH  + GROUP_PAD + row * (CHILD_SLOT_H + CHILD_GAP) + CHILD_SIZE / 2,
+          x: center.x - w / 2 + GROUP_PAD + col * CHILD_COL_W + CHILD_COL_W / 2,
+          y: center.y - h / 2 + GROUP_LH  + GROUP_PAD + row * (CARD_H + CHILD_GAP) + CARD_H / 2,
         })
       })
     }

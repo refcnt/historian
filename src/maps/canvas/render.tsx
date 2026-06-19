@@ -3,7 +3,7 @@ import type { MapRendererProps } from '../../common/panels/builder'
 import type { Node, Connection } from '../../common/models'
 import { getLayout } from './layout'
 import { colorForId } from '../../common/styles/color_generator'
-import { CHILD_SIZE, ICON_SIZE } from './constants'
+import { CHILD_SIZE, ICON_SIZE, CARD_W, CARD_H } from './constants'
 
 type Dims = { w: number; h: number }
 type Pos  = { x: number; y: number }
@@ -147,8 +147,7 @@ export default function CanvasRenderer({
     const nextDepth = currentDepth + 1
     setCurrentDepth(nextDepth)
     setLevelStack(s => [...s, n.id])
-    // Pan (not zoom) to center on the children
-    setTimeout(() => panToCenter(n.children), 0)
+    setTimeout(() => fitNodes(nodes), 0)
   }
 
   function levelBack() {
@@ -201,7 +200,6 @@ export default function CanvasRenderer({
       <g
         key={n.id}
         transform={`translate(${pos.x - w / 2},${pos.y - h / 2})`}
-        opacity={isDim ? 0.2 : 1}
         style={{ cursor: isDim ? 'default' : 'pointer' }}
         onMouseDown={e => e.stopPropagation()}
         onMouseEnter={() => !isDim && handleNodeHover(n)}
@@ -211,13 +209,13 @@ export default function CanvasRenderer({
       >
         <rect
           width={w} height={h} rx={10}
-          fill={color} fillOpacity={isDim ? 0 : hovered ? 0.18 : 0.07}
-          stroke={color} strokeWidth={hovered ? 2 : 1.2}
+          fill={color} fillOpacity={isDim ? 0.25 : hovered ? 0.38 : 0.22}
+          stroke={color} strokeOpacity={isDim ? 0.4 : 1} strokeWidth={hovered ? 2.5 : 1.5}
         />
         <text
           x={w / 2} y={15}
           textAnchor="middle" dominantBaseline="middle"
-          fill={color}
+          fill={isDim ? color : '#ffffff'} opacity={isDim ? 0.5 : 1}
           fontSize={n.fontSize ?? 11}
           fontWeight={600}
           fontFamily={n.fontFamily ?? 'system-ui, sans-serif'}
@@ -229,11 +227,11 @@ export default function CanvasRenderer({
   }
 
   function renderLeaf(n: Node, pos: Pos) {
-    const depth   = depthMap.get(n.id) ?? 0
     const hovered = hoveredId === n.id
     const color   = n.color ?? colorForId(n.id)
-    // Children of current-depth groups (depth+1) appear inside containers at reduced size
-    const hs = depth === currentDepth ? ICON_SIZE / 2 : CHILD_SIZE / 2
+    const cw = CARD_W
+    const ch = CARD_H
+    const iconSize = 28
     return (
       <g
         key={n.id}
@@ -244,19 +242,25 @@ export default function CanvasRenderer({
         onMouseLeave={() => handleNodeHover(null)}
         onClick={() => onSelect(n)}
       >
-        {hovered && <circle r={hs + 6} fill={color} fillOpacity={0.15} />}
+        <rect
+          x={-cw / 2} y={-ch / 2} width={cw} height={ch} rx={8}
+          fill={color} fillOpacity={hovered ? 0.95 : 0.82}
+          stroke={color} strokeWidth={hovered ? 2 : 1}
+        />
         {n.icon
-          ? <image href={n.icon} x={-hs} y={-hs} width={hs * 2} height={hs * 2} />
-          : <circle r={hs * 0.7} fill={color} fillOpacity={hovered ? 0.4 : 0.22} stroke={color} strokeWidth={1.2} />
+          ? <image href={n.icon} x={-iconSize / 2} y={-ch / 2 + 8} width={iconSize} height={iconSize} />
+          : <circle r={iconSize / 2} cy={-ch / 2 + 8 + iconSize / 2}
+              fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" strokeWidth={1.2} />
         }
         <text
-          x={0} y={hs + 11}
-          textAnchor="middle" dominantBaseline="hanging"
-          fill={n.fontColor ?? '#aab'}
+          x={0} y={ch / 2 - 10}
+          textAnchor="middle" dominantBaseline="middle"
+          fill="#ffffff"
           fontSize={n.fontSize ?? 9}
+          fontWeight={600}
           fontFamily={n.fontFamily ?? 'system-ui, sans-serif'}
         >
-          {depth > currentDepth ? truncate(n.name, 14) : n.name}
+          {truncate(n.name, 16)}
         </text>
       </g>
     )
@@ -270,12 +274,15 @@ export default function CanvasRenderer({
   )
   const visibleLeaves = allNodes.filter(n => {
     const d = depthMap.get(n.id) ?? 0
-    return n.children.length === 0 && (d === currentDepth || d === currentDepth + 1)
+    if (n.children.length > 0) return false
+    if (d === currentDepth) return true
+    if (d === currentDepth + 1 && currentDepth > 0) return true
+    return false
   })
   const visibleConns = connections.filter(c => {
     const df = depthMap.get(c.from.id) ?? 0
     const dt = depthMap.get(c.to.id)   ?? 0
-    return df === currentDepth && dt === currentDepth
+    return Math.max(df, dt) === currentDepth
   })
 
   return (
@@ -312,7 +319,14 @@ export default function CanvasRenderer({
             onMouseDown={handleBgMouseDown}
           />
 
-          {/* Connections at current level */}
+          {/* Groups (background) */}
+          {visibleGroups.map(n => {
+            const pos = positions.get(n.id), dims = dimsMap.get(n.id)
+            if (!pos || !dims) return null
+            return renderGroup(n, pos, dims)
+          })}
+
+          {/* Connections on top of groups */}
           {visibleConns.map(c => {
             const pa = positions.get(c.from.id), pb = positions.get(c.to.id)
             if (!pa || !pb) return null
@@ -326,25 +340,17 @@ export default function CanvasRenderer({
             return (
               <g key={c.id} onMouseEnter={() => handleConnHover(c)} onMouseLeave={() => handleConnHover(null)}>
                 <path d={d} stroke="transparent" strokeWidth={14} fill="none" />
-                <path d={d} stroke={c.color ?? '#667'} strokeWidth={hovered ? 2 : 1.2}
-                  strokeOpacity={hovered ? 0.9 : 0.35} fill="none" markerEnd="url(#arrow)" />
-                {hovered && (
-                  <>
-                    <rect x={lx - c.name.length * 3.3 - 6} y={ly - 10}
-                      width={c.name.length * 6.6 + 12} height={17} rx={3} fill="rgba(0,0,0,0.65)" />
-                    <text x={lx} y={ly + 1} textAnchor="middle" dominantBaseline="middle"
-                      fill="#ddd" fontSize={10} fontFamily="system-ui, sans-serif">{c.name}</text>
-                  </>
-                )}
+                <path d={d} stroke={c.color ?? '#aab'} strokeWidth={hovered ? 2.5 : 1.8}
+                  strokeOpacity={hovered ? 1 : 0.75} fill="none" markerEnd="url(#arrow)" />
+                {hovered && <>
+                  <rect x={lx - c.name.length * 3.3 - 6} y={ly - 10}
+                    width={c.name.length * 6.6 + 12} height={17} rx={3}
+                    fill="rgba(0,0,0,0.8)" />
+                  <text x={lx} y={ly + 1} textAnchor="middle" dominantBaseline="middle"
+                    fill="#fff" fontSize={11} fontFamily="system-ui, sans-serif">{c.name}</text>
+                </>}
               </g>
             )
-          })}
-
-          {/* Groups (background) */}
-          {visibleGroups.map(n => {
-            const pos = positions.get(n.id), dims = dimsMap.get(n.id)
-            if (!pos || !dims) return null
-            return renderGroup(n, pos, dims)
           })}
 
           {/* Leaves (foreground) */}

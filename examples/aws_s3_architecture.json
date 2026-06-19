@@ -134,6 +134,22 @@
     { "id": "conn-auth-data",   "name": "reads policies", "from": "layer-auth",   "to": "layer-data"   },
     { "id": "conn-core-events", "name": "triggers",       "from": "layer-core",   "to": "layer-events" },
     { "id": "conn-core-data",   "name": "persists to",    "from": "layer-core",   "to": "layer-data"   },
-    { "id": "conn-global-data", "name": "indexes",        "from": "layer-global", "to": "layer-data"   }
+    { "id": "conn-global-data", "name": "indexes",        "from": "layer-global", "to": "layer-data"   },
+
+    { "id": "l2-gw-router",      "name": "routes to",           "from": "api-gateway",          "to": "request-router"       },
+
+    { "id": "l2-auth-policy",    "name": "enforces",            "from": "auth-service",         "to": "bucket-policy-engine" },
+
+    { "id": "l2-ns-repl",        "name": "triggers replication","from": "namespace-service",    "to": "replication-coordinator" },
+
+    { "id": "l2-store-version",  "name": "versions",            "from": "storage-engine",       "to": "versioning-service"   },
+    { "id": "l2-lifecycle-store","name": "expires via",         "from": "lifecycle-manager",    "to": "storage-engine"       },
+
+    { "id": "l2-event-meter",    "name": "reports usage",       "from": "event-notifier",       "to": "metering-service"     },
+
+    { "id": "l2-store-meta",     "name": "writes metadata",     "from": "storage-engine",       "to": "object-metadata-db"   },
+    { "id": "l2-auth-config",    "name": "reads config",        "from": "auth-service",         "to": "bucket-config-db"     },
+    { "id": "l2-meter-usage",    "name": "records usage",       "from": "metering-service",     "to": "usage-db"             },
+    { "id": "l2-ns-config",      "name": "reads bucket config", "from": "namespace-service",    "to": "bucket-config-db"     }
   ]
 }
