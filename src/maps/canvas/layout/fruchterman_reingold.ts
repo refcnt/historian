@@ -1,6 +1,5 @@
 import type { Node, Connection } from '../../../common/models'
-import { BaseLayout } from './base'
-import type { LayoutResult } from './base'
+import { BaseLayout, ItemLayout } from './base'
 import { ICON_SIZE, CHILD_LABEL } from '../constants'
 
 const CANVAS_W   = 2000
@@ -22,9 +21,12 @@ function hashStr(s: string): number {
 }
 
 export class FruchtermanReingoldLayout extends BaseLayout {
-  compute(nodes: Node[], connections: Connection[]): LayoutResult {
-    const sizes = new Map(nodes.map(n => [n.id, { w: ICON_SIZE, h: ICON_SIZE + CHILD_LABEL }]))
-    if (nodes.length === 0) return { positions: new Map(), sizes }
+  compute(nodesByLevel: Node[][], connectionsByLevel: Connection[][]): Map<string, ItemLayout> {
+    const nodes       = nodesByLevel.flat()
+    const connections = connectionsByLevel.flat()
+    const levelMap    = new Map(nodesByLevel.flatMap((lvl, i) => lvl.map(n => [n.id, i])))
+    const sizes       = new Map(nodes.map(n => [n.id, { w: ICON_SIZE, h: ICON_SIZE + CHILD_LABEL }]))
+    if (nodes.length === 0) return new Map()
 
     const rng = seededRng(hashStr(nodes.map(n => n.id).join(',')))
     const k = Math.sqrt((CANVAS_W * CANVAS_H) / nodes.length)
@@ -128,6 +130,12 @@ export class FruchtermanReingoldLayout extends BaseLayout {
       if (!moved) break
     }
 
-    return { positions: pos, sizes }
+    const result = new Map<string, ItemLayout>()
+    for (const n of nodes) {
+      const p = pos.get(n.id)!
+      const s = sizes.get(n.id)!
+      result.set(n.id, new ItemLayout(p.x, p.y, s.w, s.h, levelMap.get(n.id) ?? 0))
+    }
+    return result
   }
 }

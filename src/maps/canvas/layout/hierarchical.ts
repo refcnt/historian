@@ -1,15 +1,14 @@
 import type { Node, Connection } from '../../../common/models'
-import { BaseLayout } from './base'
-import type { LayoutResult } from './base'
-import { ICON_SIZE, CHILD_LABEL, CHILD_SIZE, CHILD_COL_W, CHILD_GAP, CHILD_COLS, GROUP_PAD, GROUP_LH, CARD_H, groupDims } from '../constants'
+import { BaseLayout, ItemLayout } from './base'
+import { CHILD_COL_W, CHILD_GAP, CHILD_COLS, GROUP_PAD, GROUP_LH, CARD_W, CARD_H, groupDims } from '../constants'
 
 const CANVAS_W   = 3000
 const CANVAS_H   = 2200
 const ITERATIONS = 400
 const MARGIN     = 40
 
-const LEAF_W = CHILD_COL_W
-const LEAF_H = ICON_SIZE + CHILD_LABEL
+const LEAF_W = CARD_W
+const LEAF_H = CARD_H
 
 function seededRng(seed: number) {
   let s = Math.abs(seed) | 1
@@ -107,12 +106,13 @@ function runFR(
 }
 
 export class HierarchicalLayout extends BaseLayout {
-  compute(nodes: Node[], connections: Connection[]): LayoutResult {
-    if (nodes.length === 0) return { positions: new Map(), sizes: new Map() }
+  compute(nodesByLevel: Node[][], connectionsByLevel: Connection[][]): Map<string, ItemLayout> {
+    const nodes       = nodesByLevel.flat()
+    const connections = connectionsByLevel.flat()
+    if (nodes.length === 0) return new Map()
 
-    const nodeMap = new Map(nodes.map(n => [n.id, n]))
-    const roots   = nodes.filter(n => !n.parent || !nodeMap.has(n.parent.id))
-    if (roots.length === 0) return { positions: new Map(), sizes: new Map() }
+    const roots = nodesByLevel[0] ?? []
+    if (roots.length === 0) return new Map()
 
     // ── 1. Bottom-up: compute sizes using grid formula ───────────────────────
     const sizes = new Map<string, Size>()
@@ -129,32 +129,31 @@ export class HierarchicalLayout extends BaseLayout {
     for (const root of roots) computeSize(root)
 
     // ── 2. Top-level F-R for roots (size-aware + connection weight) ──────────
-    const rootIds  = new Set(roots.map(r => r.id))
+    const rootIds   = new Set(roots.map(r => r.id))
     const rootConns = connections.filter(c => rootIds.has(c.from.id) && rootIds.has(c.to.id))
-    const rootPos  = runFR(roots, rootConns, sizes)
+    const rootPos   = runFR(roots, rootConns, sizes)
 
     // ── 3. Top-down: assign positions (grid layout for children) ────────────
-    const result = new Map<string, Pos>()
+    const result = new Map<string, ItemLayout>()
 
-    const assign = (n: Node, center: Pos) => {
-      result.set(n.id, center)
+    const assign = (n: Node, center: Pos, level: number) => {
+      const s = sizes.get(n.id)!
+      result.set(n.id, new ItemLayout(center.x, center.y, s.w, s.h, level))
       if (n.children.length === 0) return
 
-      const { w, h } = sizes.get(n.id)!
       const cols = Math.min(n.children.length, CHILD_COLS)
-
       n.children.forEach((child, i) => {
         const col = i % cols
         const row = Math.floor(i / cols)
         assign(child, {
-          x: center.x - w / 2 + GROUP_PAD + col * CHILD_COL_W + CHILD_COL_W / 2,
-          y: center.y - h / 2 + GROUP_LH  + GROUP_PAD + row * (CARD_H + CHILD_GAP) + CARD_H / 2,
-        })
+          x: center.x - s.w / 2 + GROUP_PAD + col * CHILD_COL_W + CHILD_COL_W / 2,
+          y: center.y - s.h / 2 + GROUP_LH  + GROUP_PAD + row * (CARD_H + CHILD_GAP) + CARD_H / 2,
+        }, level + 1)
       })
     }
 
-    for (const root of roots) assign(root, rootPos.get(root.id)!)
+    for (const root of roots) assign(root, rootPos.get(root.id)!, 0)
 
-    return { positions: result, sizes }
+    return result
   }
 }

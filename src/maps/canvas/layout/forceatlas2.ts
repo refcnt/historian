@@ -1,8 +1,7 @@
 import Graph from 'graphology'
 import forceAtlas2 from 'graphology-layout-forceatlas2'
 import type { Node, Connection } from '../../../common/models'
-import { BaseLayout } from './base'
-import type { LayoutResult } from './base'
+import { BaseLayout, ItemLayout } from './base'
 import { ICON_SIZE, CHILD_LABEL } from '../constants'
 
 function seededRng(seed: number) {
@@ -20,9 +19,12 @@ function hashStr(s: string): number {
 }
 
 export class ForceAtlas2Layout extends BaseLayout {
-  compute(nodes: Node[], connections: Connection[]): LayoutResult {
-    const sizes = new Map(nodes.map(n => [n.id, { w: ICON_SIZE, h: ICON_SIZE + CHILD_LABEL }]))
-    if (nodes.length === 0) return { positions: new Map(), sizes }
+  compute(nodesByLevel: Node[][], connectionsByLevel: Connection[][]): Map<string, ItemLayout> {
+    const nodes       = nodesByLevel.flat()
+    const connections = connectionsByLevel.flat()
+    const levelMap    = new Map(nodesByLevel.flatMap((lvl, i) => lvl.map(n => [n.id, i])))
+    const sizes       = new Map(nodes.map(n => [n.id, { w: ICON_SIZE, h: ICON_SIZE + CHILD_LABEL }]))
+    if (nodes.length === 0) return new Map()
 
     const rng = seededRng(hashStr(nodes.map(n => n.id).join(',')))
     const spread = 1000
@@ -48,11 +50,12 @@ export class ForceAtlas2Layout extends BaseLayout {
     settings.scalingRatio = 4
     forceAtlas2.assign(graph, { iterations: 500, settings })
 
-    const positions = new Map<string, { x: number; y: number }>()
+    const result = new Map<string, ItemLayout>()
     for (const n of nodes) {
       const attrs = graph.getNodeAttributes(n.id)
-      positions.set(n.id, { x: attrs.x as number, y: attrs.y as number })
+      const s     = sizes.get(n.id)!
+      result.set(n.id, new ItemLayout(attrs.x as number, attrs.y as number, s.w, s.h, levelMap.get(n.id) ?? 0))
     }
-    return { positions, sizes }
+    return result
   }
 }
