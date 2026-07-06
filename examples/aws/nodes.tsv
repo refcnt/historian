@@ -1,0 +1,43 @@
+id	parent	name
+0850d36b-b7a6-41cb-accd-6d9e74ef47eb		API Layer
+c66d939c-97eb-4668-b01f-2ae6aef8925e	0850d36b-b7a6-41cb-accd-6d9e74ef47eb	S3 API Gateway
+4774a51c-b6f7-4bd2-af99-0c566931269d		Auth
+0b263ae7-df82-43ec-9f33-31e699cd6619	4774a51c-b6f7-4bd2-af99-0c566931269d	Auth Service
+69cae78c-4c9f-4883-a228-22ca2cbc3f5f	4774a51c-b6f7-4bd2-af99-0c566931269d	Bucket Policy Engine
+079bf2c2-a3f7-47f6-8b53-4442c047fb88	4774a51c-b6f7-4bd2-af99-0c566931269d	ACL Manager
+49d1664c-8b42-4ab4-b69a-1257745af06e		Global
+cc2772ed-c09c-4c9f-98bb-28c4e347c2b5	49d1664c-8b42-4ab4-b69a-1257745af06e	Namespace Service
+46b64eda-7363-4b9a-829b-7f64c1423350	49d1664c-8b42-4ab4-b69a-1257745af06e	Replication Coord.
+ecd8f978-1e34-416a-a965-a5985cc549d7	49d1664c-8b42-4ab4-b69a-1257745af06e	Region Router
+53abcdc7-0470-41f2-8c24-452baacfd0db	49d1664c-8b42-4ab4-b69a-1257745af06e	DNS Resolver
+9b775e77-f5ed-44f0-af37-d74ec51709e6	49d1664c-8b42-4ab4-b69a-1257745af06e	Topology Manager
+d08f4dd0-ae63-4e03-8695-dcdc790f143b		Core Storage
+164ad00a-127d-4a12-8b0c-935797f0443a	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Storage Engine
+689af0fa-32e7-43d3-9172-eaba15559cae	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Lifecycle Manager
+ea35ff21-3bee-4e08-b220-86b1866e50e6	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Versioning
+b960e5e6-947f-4b67-bce2-42103fe7e9eb	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Multipart Manager
+538afd34-edd8-4849-95d5-2d1b2c493f81	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Checksum Validator
+9f2801ac-b5c0-47a8-9f4f-34595a629f17	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Encryption
+aaf9f2ed-0e6f-496e-a99d-68fd550554f8	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Tiering Engine
+924f5b7a-0961-4483-8352-c248ece5069b	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Restore Manager
+ae573c5f-2f15-431f-a670-408249b652ab	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Erasure Coder
+300eea64-1d66-4252-87dc-6bcf2f47e4e8	d08f4dd0-ae63-4e03-8695-dcdc790f143b	Index Service
+e118d0dc-a65a-4f0b-8c66-73df93bc7027		Events & Billing
+04889ac6-8995-4b40-b689-a3277548c531	e118d0dc-a65a-4f0b-8c66-73df93bc7027	Event Notifier
+53b55280-76a8-469f-9a16-df4c51e6e0a9	e118d0dc-a65a-4f0b-8c66-73df93bc7027	Metering Service
+4a25ec6a-1605-4738-815f-e2eacdc45ce9		Data Stores
+7adc9908-e4f2-4f2b-b888-e77167df784d	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Object Metadata DB
+f7fab6a0-c202-45d5-8087-e93c05e9131e	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Bucket Config DB
+8d0913c5-ee52-4077-8f23-dbbe37828bdd	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Usage DB
+7e8c3293-c9d8-4f6f-8e5d-e488feb49018	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Version Index DB
+6a4e636c-0236-45c6-832b-b3f55fb7f2d0	4a25ec6a-1605-4738-815f-e2eacdc45ce9	ACL Store
+ab86981b-3fd6-4ec4-97f0-bc6d656189a2	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Lifecycle Rules DB
+09982da2-d31f-408d-9c56-302a4c04e283	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Replication Log
+48c521ca-1ec7-48e2-a4d0-abb98615df70	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Multipart State DB
+84ca8585-1fa5-4a2c-989d-fcae4c361e69	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Encryption Keys DB
+74378a9b-4c56-4192-8735-3d6c3184eb58	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Billing Ledger
+0a4ef7c6-eef0-4c11-a9c6-c85a360a16f6	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Audit Log
+4dd71ddb-91a9-4ad2-a92f-6e63d317be57	4a25ec6a-1605-4738-815f-e2eacdc45ce9	CORS Config DB
+8215f5da-0d06-42d3-9e40-443c74b1d4ea	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Notification Config
+4bedf55d-024c-4711-a852-9289b5a8ff1f	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Tag Index DB
+6ff0db78-4f0c-439d-b000-05ad956f7337	4a25ec6a-1605-4738-815f-e2eacdc45ce9	Region Manifest DB

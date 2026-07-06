@@ -1,0 +1,13 @@
+id	name
+64c16fba-2409-4065-8981-9f138ae687b2	Object write (PUT)
+5ccd533e-e686-4a21-97a9-07fe2d2f53c8	Event notification
+a991d3da-18a5-4a58-888f-e270058db7cf	Object read via CDN
+13915f4e-7ec0-4f11-be15-7138b6697d6b	Multipart upload
+11c3fe25-84a7-4284-81b5-5f0e4076cda3	Bucket ACL check
+67ffce6e-f8a9-4fbb-adf0-8d9c76c7659b	Versioning read
+9ffb201d-9a97-471d-97a0-f5a42aea8f2c	Lifecycle transition
+c15e6f50-ab1a-422b-a8de-33055ed4b9ee	Cross-region replication
+f3fa3bf4-5719-419c-8da2-02e6fc5d55d5	Server-side encryption
+718afd20-ba25-4e16-93c2-f5251939995f	Metering & billing
+734010fa-44b5-457b-a1e6-d9137226c866	Restore from archive
+f6af36c7-cd5c-4386-963e-5e295424b0d9	Checksum validation

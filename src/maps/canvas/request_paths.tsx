@@ -37,7 +37,7 @@ function PathRow({ path, active, nodeName, onToggle }: {
         <button className={`tree-chevron${open ? ' open' : ''}`} onClick={() => setOpen(o => !o)}>▸</button>
         <button className={`path-item${active ? ' active' : ''}`} onClick={onToggle}>
           <span className="path-dot" style={{ background: color }} />
-          {path.name}
+          <span className="path-name">{path.name}</span>
         </button>
       </div>
       {open && (

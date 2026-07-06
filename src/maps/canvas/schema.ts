@@ -1,35 +1,39 @@
 import { z } from 'zod'
-import { nodeSchema, documentSchema } from '@common/loader/schema'
+import { connectionRowSchema, parentCell } from '@common/loader/schema'
 
-export interface CanvasNodeDoc {
-  id:        string
-  name:      string
-  color?:    string
-  children?: CanvasNodeDoc[]
-}
+export const canvasNodeRow = z.object({
+  id:     z.string().min(1),
+  parent: parentCell,
+  name:   z.string(),
+})
+export type CanvasNodeRow = z.infer<typeof canvasNodeRow>
 
-export const canvasNodeSchema = nodeSchema<CanvasNodeDoc>({ color: z.string().optional() })
+export const pathRow = z.object({
+  id:   z.string().min(1),
+  name: z.string(),
+})
 
-// A request path: an ordered list of hops, each carrying its own metadata.
-const requestStepSchema = z.object({
-  from:        z.string(),
-  to:          z.string(),
+export const pathStepRow = z.object({
+  pathId:      z.string().min(1),
+  order:       z.string().optional(),
+  from:        z.string().min(1),
+  to:          z.string().min(1),
   method:      z.string().optional(),
   path:        z.string().optional(),
-  queryParams: z.record(z.string(), z.string()).optional(),
-  headers:     z.record(z.string(), z.string()).optional(),
-  reqPerSec:   z.number().optional(),
-  bytesPerSec: z.number().optional(),
+  reqPerSec:   z.string().optional(),
+  bytesPerSec: z.string().optional(),
+  headers:     z.string().optional(),
+  queryParams: z.string().optional(),
 })
+export type PathStepRow = z.infer<typeof pathStepRow>
 
-const requestPathSchema = z.object({
-  id:    z.string(),
-  name:  z.string(),
-  color: z.string().optional(),
-  steps: z.array(requestStepSchema),
-})
-
-export const canvasDocumentSchema = documentSchema('canvas', canvasNodeSchema).extend({
-  paths: z.array(requestPathSchema).optional().default([]),
+export const canvasDocumentSchema = z.object({
+  mapType:     z.literal('canvas'),
+  name:        z.string().default(''),
+  info:        z.record(z.string(), z.any()).optional().default({}),
+  nodes:       z.array(canvasNodeRow),
+  connections: z.array(connectionRowSchema).optional().default([]),
+  paths:       z.array(pathRow).optional().default([]),
+  pathSteps:   z.array(pathStepRow).optional().default([]),
 })
 export type CanvasDocument = z.infer<typeof canvasDocumentSchema>

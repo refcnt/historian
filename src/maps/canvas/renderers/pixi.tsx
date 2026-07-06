@@ -156,15 +156,18 @@ class PixiRenderer extends BaseRenderer {
                 .stroke({ color: col, alpha: isDim ? 0.35 : 1, width: hov ? 3 : 2 })
             this.world!.addChild(g)
 
-            const fontSize = GROUP_FONT
+            const open     = this.currLevel > n.level
+            const fontSize = open
+                ? Math.min(40, Math.max(GROUP_FONT, w * 0.07))
+                : Math.max(14, Math.min(64, (w * 0.86) / Math.max(4, n.name.length * 0.58), h * 0.4))
             const label = new PIXI.Text({
                 text: n.name,
-                style: { fill: isDim ? numToHex(col) : '#ffffff', fontSize, fontWeight: '600', fontFamily: 'system-ui, sans-serif' },
+                style: { fill: isDim ? numToHex(col) : '#ffffff', fontSize, fontWeight: '700', fontFamily: 'system-ui, sans-serif' },
                 resolution: 2,
             })
             label.alpha = opacity
             label.anchor.set(0.5, 0.5)
-            label.position.set(x, y - h/2 + fontSize)
+            label.position.set(x, open ? y - h/2 + fontSize * 0.9 + 4 : y)
             this.world!.addChild(label)
 
             if (!isDim) {

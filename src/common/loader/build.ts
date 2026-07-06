@@ -1,102 +1,83 @@
 import type { Node, Connection, ExplorerData, Id, InfoBlock, RequestPath } from '@common/models'
-import type { ConnectionDoc } from './schema'
+import type { ConnectionRow } from './schema'
 import { ParseError } from './errors'
 
 /**
- * Pure, reusable parsing helpers shared by every map's `parse`. Maps compose
- * these (passing their own `applyNodeExtras`) instead of subclassing a parser —
- * so map-specific fields stay type-safe with no downcasts.
+ * Builds the domain model from the flat, table-based format: nodes reference
+ * their parent by id (tree assembled here), connections reference from/to by id.
+ * Maps pass an `applyNodeExtras` hook for map-specific columns (e.g. geo location).
  */
 
-interface NodeDoc {
-  id:        string
-  name:      string
-  children?: NodeDoc[]
-}
+interface NodeRow { id: string; parent?: string; name: string }
 
-interface DocumentDoc<N extends NodeDoc> {
+interface FlatDoc<N extends NodeRow> {
   mapType:     string
   name?:       string
+  info?:       Record<string, unknown>
   nodes:       N[]
-  connections: ConnectionDoc[]
-  info:        Record<string, unknown>
+  connections: ConnectionRow[]
   paths?:      RequestPath[]
 }
 
-export function buildExplorerData<N extends NodeDoc>(
-  doc:             DocumentDoc<N>,
-  applyNodeExtras: (raw: N, node: Node) => void = () => {},
+export function buildExplorerData<N extends NodeRow>(
+  doc:             FlatDoc<N>,
+  applyNodeExtras: (row: N, node: Node) => void = () => {},
 ): ExplorerData {
-  const nodes   = buildNodes(doc.nodes, applyNodeExtras)
-  const nodeMap = toMap(nodes)
+  const nodes       = buildNodes(doc.nodes, applyNodeExtras)
+  const connections = buildConnections(doc.connections, nodes)
 
-  const connections   = buildConnections(doc.connections, nodeMap)
-  const connectionMap = toMap(connections)
-
-  const overlap = new Set(nodeMap.keys()).intersection(new Set(connectionMap.keys()))
+  const overlap = new Set(nodes.keys()).intersection(new Set(connections.keys()))
   if (overlap.size > 0) {
     throw new ParseError(`Ids used by both nodes and connections: ${[...overlap].join(', ')}`)
   }
 
   return {
-    mapType:     doc.mapType,
-    nodes:       nodeMap,
-    connections: connectionMap,
-    info:        doc.info as Record<Id, InfoBlock>,
-    config:      { name: doc.name ?? '' },
-    paths:       doc.paths ?? [],
+    mapType: doc.mapType,
+    nodes,
+    connections,
+    info:    (doc.info ?? {}) as Record<Id, InfoBlock>,
+    config:  { name: doc.name ?? '' },
+    paths:   doc.paths ?? [],
   }
 }
 
-function buildNodes<N extends NodeDoc>(
-  raws:            N[],
-  applyNodeExtras: (raw: N, node: Node) => void,
-  parent?:         Node,
-  level = 0,
-): Node[] {
-  const result: Node[] = []
-  for (const raw of raws) {
-    const node: Node = { id: raw.id, name: raw.name, level, parent, children: [] }
-    if (raw.children) {
-      node.children = buildNodes(raw.children as N[], applyNodeExtras, node, level + 1)
-    }
-    applyNodeExtras(raw, node)
-    result.push(node)
+function buildNodes<N extends NodeRow>(rows: N[], applyExtras: (row: N, node: Node) => void): Map<Id, Node> {
+  const map = new Map<Id, Node>()
+  for (const row of rows) {
+    if (map.has(row.id)) throw new ParseError(`Duplicate node id "${row.id}"`)
+    const node: Node = { id: row.id, name: row.name, level: 0, parent: undefined, children: [] }
+    applyExtras(row, node)
+    map.set(row.id, node)
   }
-  return result
+  for (const row of rows) {
+    if (!row.parent) continue
+    const node   = map.get(row.id)!
+    const parent = map.get(row.parent)
+    if (!parent) throw new ParseError(`Node "${row.id}": unknown parent "${row.parent}"`)
+    node.parent = parent
+    parent.children.push(node)
+  }
+  const assignLevel = (n: Node, level: number): void => {
+    n.level = level
+    for (const child of n.children) assignLevel(child, level + 1)
+  }
+  for (const n of map.values()) if (!n.parent) assignLevel(n, 0)
+  return map
 }
 
-function buildConnections(
-  raws:    ConnectionDoc[],
-  nodeMap: Map<Id, Node>,
-  parent?: Connection,
-  level = 0,
-): Connection[] {
-  const result: Connection[] = []
-  for (const raw of raws) {
-    const from = nodeMap.get(raw.from)
-    const to   = nodeMap.get(raw.to)
+function buildConnections(rows: ConnectionRow[], nodeMap: Map<Id, Node>): Map<Id, Connection> {
+  const map = new Map<Id, Connection>()
+  for (const row of rows) {
+    if (map.has(row.id)) throw new ParseError(`Duplicate connection id "${row.id}"`)
+    const from = nodeMap.get(row.from)
+    const to   = nodeMap.get(row.to)
     if (!from || !to) {
-      throw new ParseError(`Connection "${raw.id}": unresolved from="${raw.from}" or to="${raw.to}"`)
+      throw new ParseError(`Connection "${row.id}": unresolved from="${row.from}" or to="${row.to}"`)
     }
-    const conn: Connection = { id: raw.id, name: raw.name, from, to, level, parent, children: [] }
-    if (raw.children) {
-      conn.children = buildConnections(raw.children, nodeMap, conn, level + 1)
-    }
-    result.push(conn)
-  }
-  return result
-}
-
-function toMap<T extends { id: Id; children: T[] }>(items: T[], map: Map<Id, T> = new Map()): Map<Id, T> {
-  for (const item of items) {
-    if (map.has(item.id)) {
-      throw new ParseError(`Duplicate id "${item.id}"`)
-    }
-    map.set(item.id, item)
-    if (item.children.length > 0) {
-      toMap(item.children, map)
-    }
+    map.set(row.id, {
+      id: row.id, name: row.name, from, to,
+      level: Math.max(from.level, to.level), parent: undefined, children: [],
+    })
   }
   return map
 }

@@ -3,6 +3,7 @@ import type { ComponentType } from 'react'
 import type { Node, Connection, Id, ExplorerData, MapRendererProps, SidebarProps } from './common/models'
 import { load } from './common/loader/pipeline'
 import { pipe, andThen, ok } from './common/result'
+import { DEFAULT_DATA } from './common/data_sources'
 import { getMap } from './maps/map'
 import './App.css'
 import { BuildFailed, BuildLoading, Build } from './views'
@@ -19,8 +20,7 @@ export default function App() {
   const [activePathIds, setActivePathIds] = useState<Set<Id>>(() => new Set())
 
   useEffect(() => {
-    const dataPath = new URLSearchParams(window.location.search).get('data')
-      ?? '/examples/history_data.json'
+    const dataPath = new URLSearchParams(window.location.search).get('data') ?? DEFAULT_DATA
 
     pipe(
       load(dataPath),

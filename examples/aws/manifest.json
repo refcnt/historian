@@ -1,0 +1,558 @@
+{
+  "mapType": "canvas",
+  "name": "AWS S3 Architecture",
+  "tables": {
+    "nodes": "nodes.tsv",
+    "connections": "connections.tsv",
+    "paths": "paths.tsv",
+    "pathSteps": "path_steps.tsv"
+  },
+  "info": {
+    "0850d36b-b7a6-41cb-accd-6d9e74ef47eb": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Handles all incoming S3 API requests. Authenticates, validates, and routes to the appropriate internal services."
+            }
+          ]
+        }
+      ]
+    },
+    "4774a51c-b6f7-4bd2-af99-0c566931269d": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Manages identity and access management. Validates credentials, checks bucket policies, and enforces ACLs."
+            }
+          ]
+        }
+      ]
+    },
+    "49d1664c-8b42-4ab4-b69a-1257745af06e": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Maintains the global namespace across all regions. Ensures consistent bucket/object naming and cross-region coordination."
+            }
+          ]
+        }
+      ]
+    },
+    "d08f4dd0-ae63-4e03-8695-dcdc790f143b": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Core data storage and lifecycle management. Handles object persistence, versioning, and tier transitions."
+            }
+          ]
+        }
+      ]
+    },
+    "e118d0dc-a65a-4f0b-8c66-73df93bc7027": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Event notification and usage metering. Emits S3 events to SNS/SQS/Lambda and tracks per-bucket usage."
+            }
+          ]
+        }
+      ]
+    },
+    "4a25ec6a-1605-4738-815f-e2eacdc45ce9": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Persistent data stores backing all S3 services. Stores object metadata, bucket configuration, and usage records."
+            }
+          ]
+        }
+      ]
+    },
+    "c66d939c-97eb-4668-b01f-2ae6aef8925e": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Public-facing S3 REST API endpoint. Terminates TLS, parses the request path, and dispatches to internal services."
+            }
+          ]
+        }
+      ]
+    },
+    "0b263ae7-df82-43ec-9f33-31e699cd6619": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Validates AWS Signature v4 credentials and evaluates IAM policies."
+            }
+          ]
+        }
+      ]
+    },
+    "69cae78c-4c9f-4883-a228-22ca2cbc3f5f": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Evaluates bucket policies, ACLs, and Object Lock conditions for every request."
+            }
+          ]
+        }
+      ]
+    },
+    "079bf2c2-a3f7-47f6-8b53-4442c047fb88": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Manages access control lists for buckets and objects."
+            }
+          ]
+        }
+      ]
+    },
+    "cc2772ed-c09c-4c9f-98bb-28c4e347c2b5": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Maintains the global flat object namespace. Resolves bucket ownership and performs cross-region lookups."
+            }
+          ]
+        }
+      ]
+    },
+    "46b64eda-7363-4b9a-829b-7f64c1423350": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Coordinates cross-region replication (CRR) and same-region replication (SRR) jobs."
+            }
+          ]
+        }
+      ]
+    },
+    "ecd8f978-1e34-416a-a965-a5985cc549d7": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Routes requests to the correct regional endpoint based on bucket location."
+            }
+          ]
+        }
+      ]
+    },
+    "53abcdc7-0470-41f2-8c24-452baacfd0db": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Resolves virtual-hosted-style bucket DNS names to regional endpoints."
+            }
+          ]
+        }
+      ]
+    },
+    "9b775e77-f5ed-44f0-af37-d74ec51709e6": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Tracks availability zone topology for placement decisions."
+            }
+          ]
+        }
+      ]
+    },
+    "164ad00a-127d-4a12-8b0c-935797f0443a": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Low-level object storage engine. Writes objects to distributed storage nodes with erasure coding."
+            }
+          ]
+        }
+      ]
+    },
+    "689af0fa-32e7-43d3-9172-eaba15559cae": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Applies S3 Lifecycle rules: transitions objects to Glacier, expires old versions, aborts multipart uploads."
+            }
+          ]
+        }
+      ]
+    },
+    "ea35ff21-3bee-4e08-b220-86b1866e50e6": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Manages object versioning. Maintains the version list and enforces Object Lock retention periods."
+            }
+          ]
+        }
+      ]
+    },
+    "b960e5e6-947f-4b67-bce2-42103fe7e9eb": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Handles multipart upload initiation, part tracking, and completion assembly."
+            }
+          ]
+        }
+      ]
+    },
+    "538afd34-edd8-4849-95d5-2d1b2c493f81": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Validates CRC32, SHA-256, and MD5 checksums on ingest and retrieval."
+            }
+          ]
+        }
+      ]
+    },
+    "9f2801ac-b5c0-47a8-9f4f-34595a629f17": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Manages SSE-S3, SSE-KMS, and SSE-C envelope encryption for stored objects."
+            }
+          ]
+        }
+      ]
+    },
+    "aaf9f2ed-0e6f-496e-a99d-68fd550554f8": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Moves objects between S3 storage classes (Standard, IA, Glacier) based on access patterns."
+            }
+          ]
+        }
+      ]
+    },
+    "924f5b7a-0961-4483-8352-c248ece5069b": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Handles Glacier restore requests, tracking restore status and expiry."
+            }
+          ]
+        }
+      ]
+    },
+    "ae573c5f-2f15-431f-a670-408249b652ab": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Encodes and decodes object data using Reed-Solomon erasure coding across AZs."
+            }
+          ]
+        }
+      ]
+    },
+    "300eea64-1d66-4252-87dc-6bcf2f47e4e8": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Maintains the S3 Inventory and S3 Select index for fast object enumeration and querying."
+            }
+          ]
+        }
+      ]
+    },
+    "04889ac6-8995-4b40-b689-a3277548c531": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Publishes S3 event notifications (s3:ObjectCreated, s3:ObjectRemoved, etc.) to SNS, SQS, or Lambda."
+            }
+          ]
+        }
+      ]
+    },
+    "53b55280-76a8-469f-9a16-df4c51e6e0a9": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Tracks per-bucket storage usage, request counts, and data transfer for billing."
+            }
+          ]
+        }
+      ]
+    },
+    "7adc9908-e4f2-4f2b-b888-e77167df784d": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores object metadata: key, size, ETag, version ID, user-defined tags, and system metadata."
+            }
+          ]
+        }
+      ]
+    },
+    "f7fab6a0-c202-45d5-8087-e93c05e9131e": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores bucket configuration: policies, CORS rules, logging settings, versioning state, lifecycle rules."
+            }
+          ]
+        }
+      ]
+    },
+    "8d0913c5-ee52-4077-8f23-dbbe37828bdd": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Time-series store for per-bucket usage metrics consumed by the billing system."
+            }
+          ]
+        }
+      ]
+    },
+    "7e8c3293-c9d8-4f6f-8e5d-e488feb49018": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores the ordered version list for every versioned object."
+            }
+          ]
+        }
+      ]
+    },
+    "6a4e636c-0236-45c6-832b-b3f55fb7f2d0": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Persistent store for bucket and object ACL entries."
+            }
+          ]
+        }
+      ]
+    },
+    "ab86981b-3fd6-4ec4-97f0-bc6d656189a2": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores lifecycle rule configurations per bucket."
+            }
+          ]
+        }
+      ]
+    },
+    "09982da2-d31f-408d-9c56-302a4c04e283": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Write-ahead log tracking replication job state across regions."
+            }
+          ]
+        }
+      ]
+    },
+    "48c521ca-1ec7-48e2-a4d0-abb98615df70": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Tracks in-progress multipart upload sessions and uploaded parts."
+            }
+          ]
+        }
+      ]
+    },
+    "84ca8585-1fa5-4a2c-989d-fcae4c361e69": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores data encryption key (DEK) references and KMS key aliases per object."
+            }
+          ]
+        }
+      ]
+    },
+    "74378a9b-4c56-4192-8735-3d6c3184eb58": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Immutable ledger of all billable events: storage, requests, and data transfer."
+            }
+          ]
+        }
+      ]
+    },
+    "0a4ef7c6-eef0-4c11-a9c6-c85a360a16f6": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "CloudTrail-backed append-only audit log of all S3 API calls."
+            }
+          ]
+        }
+      ]
+    },
+    "4dd71ddb-91a9-4ad2-a92f-6e63d317be57": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores per-bucket CORS rule sets evaluated on preflight and actual cross-origin requests."
+            }
+          ]
+        }
+      ]
+    },
+    "8215f5da-0d06-42d3-9e40-443c74b1d4ea": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stores event notification configurations (topic, queue, lambda targets) per bucket."
+            }
+          ]
+        }
+      ]
+    },
+    "4bedf55d-024c-4711-a852-9289b5a8ff1f": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Secondary index on object tags enabling tag-based cost allocation and lifecycle filtering."
+            }
+          ]
+        }
+      ]
+    },
+    "6ff0db78-4f0c-439d-b000-05ad956f7337": {
+      "tabs": [
+        {
+          "title": "Info",
+          "content": [
+            {
+              "type": "text",
+              "text": "Tracks which regions hold replicas of each bucket for cross-region resolution."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

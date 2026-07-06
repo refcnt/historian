@@ -58,6 +58,12 @@ class SVGRenderer extends BaseRenderer {
 
 // ── Draw helpers ──────────────────────────────────────────────────────────────
 
+// Largest font that fits a centred title inside a box (bounded by width, height, and a cap).
+function fitFont(name: string, w: number, h: number): number {
+    const byWidth = (w * 0.86) / Math.max(4, name.length * 0.58)
+    return Math.max(14, Math.min(64, byWidth, h * 0.4))
+}
+
 function renderGroup(n: Node, l: ItemLayout, r: SVGRenderer) {
     const { x, y } = l.position
     const { w, h } = l.size
@@ -65,6 +71,13 @@ function renderGroup(n: Node, l: ItemLayout, r: SVGRenderer) {
     const isDim    = opacity < 1
     const hovered  = r.hoveredId === n.id && !isDim
     const color    = n.color ?? colorForId(n.id)
+    // Closed box (children not shown at this level) → big centred title filling the
+    // empty box; open box (drilled in, children visible) → small header at the top.
+    const open     = r.currLevel > n.level
+    const font     = open
+        ? Math.min(40, Math.max(GROUP_FONT, w * 0.07))
+        : fitFont(n.name, w, h)
+    const ty       = open ? font * 0.7 + 8 : h / 2
     return (
         <g key={n.id} transform={`translate(${x - w/2},${y - h/2})`}
             style={{ cursor: isDim ? 'default' : 'pointer' }}
@@ -78,9 +91,9 @@ function renderGroup(n: Node, l: ItemLayout, r: SVGRenderer) {
                 fill={color} fillOpacity={isDim ? 0.18 : hovered ? 0.80 : 0.62}
                 stroke={color} strokeOpacity={isDim ? 0.35 : 1} strokeWidth={hovered ? 3 : 2}
             />
-            <text x={w/2} y={GROUP_FONT + 4} textAnchor="middle" dominantBaseline="middle"
+            <text x={w/2} y={ty} textAnchor="middle" dominantBaseline="middle"
                 fill={isDim ? color : '#ffffff'} opacity={opacity}
-                fontSize={GROUP_FONT} fontWeight={600} fontFamily="system-ui, sans-serif"
+                fontSize={font} fontWeight={700} fontFamily="system-ui, sans-serif"
             >
                 {n.name}
             </text>

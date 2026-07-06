@@ -19,15 +19,39 @@ body {
 
 /* ── Sidebar ────────────────────────────────────── */
 .sidebar {
-  width: 210px;
+  width: 240px;
   flex-shrink: 0;
+  position: relative;
   background: #0c0f20;
   border-right: 1px solid #2a2a44;
   padding: 18px 14px;
-  overflow-y: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+.sidebar-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin-right: -8px;
+  padding-right: 8px;
+}
+
+.sidebar-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  z-index: 5;
+}
+
+.sidebar-resizer:hover,
+.sidebar-resizer:active {
+  background: linear-gradient(to right, transparent, #6495ED55);
 }
 
 .sidebar-title {
@@ -488,3 +512,58 @@ body {
   font-weight: 700;
   background: #0a0e1a;
 }
+
+/* ── Sidebar density: truncation + search ───────── */
+.node-label,
+.step-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.path-item { min-width: 0; }
+
+.path-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu-search {
+  width: 100%;
+  background: #12152a;
+  border: 1px solid #2a2a44;
+  color: #ddd;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 7px;
+  outline: none;
+}
+
+.menu-search::placeholder { color: #667; }
+.menu-search:focus { border-color: #6495ED88; }
+
+.menu-empty {
+  font-size: 11.5px;
+  color: #667;
+  padding: 4px 2px;
+}
+
+/* ── Data source switcher ───────────────────────── */
+.data-source-select {
+  width: 100%;
+  background: #12152a;
+  border: 1px solid #2a2a44;
+  color: #cdd;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.data-source-select:focus { border-color: #6495ED88; }
