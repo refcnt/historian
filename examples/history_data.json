@@ -1,5 +1,5 @@
 {
-  "type": "geo",
+  "mapType": "geo",
   "info": {
     "europe": {
       "tabs": [

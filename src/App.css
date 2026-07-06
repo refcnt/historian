@@ -284,3 +284,207 @@ body {
 .maplibregl-ctrl-bottom-right {
   display: none;
 }
+
+/* ── Collapsible menu sections + node tree ──────── */
+.menu-section {
+  margin-bottom: 4px;
+}
+
+.menu-section-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 7px 2px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu-section-header:hover { color: #bbb; }
+
+.menu-section-header .chevron {
+  display: inline-block;
+  font-size: 9px;
+  color: #666;
+  transition: transform 0.15s;
+}
+
+.menu-section-header .chevron.open { transform: rotate(90deg); }
+
+.menu-section-body {
+  padding: 2px 0 8px;
+}
+
+.node-tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.node-tree .node-tree { margin-top: 3px; }
+
+.node-row {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.tree-chevron {
+  flex-shrink: 0;
+  width: 16px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 9px;
+  cursor: pointer;
+  transition: transform 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tree-chevron:hover { color: #ccc; }
+.tree-chevron.open { transform: rotate(90deg); }
+.tree-chevron.placeholder { cursor: default; visibility: hidden; }
+
+.node-label {
+  flex: 1;
+  background: #1a1a2e;
+  border: 1px solid #2a2a44;
+  color: #aaa;
+  padding: 5px 9px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.node-label:hover {
+  background: #252540;
+  color: #eee;
+}
+
+.node-label.active {
+  background: #6495ED22;
+  border-color: #6495ED66;
+  color: #9eb8f5;
+}
+
+/* ── Request paths ─────────────────────────────── */
+.path-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.path-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1a1a2e;
+  border: 1px solid #2a2a44;
+  color: #aaa;
+  padding: 6px 9px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.path-item:hover { background: #252540; color: #eee; }
+
+.path-item.active {
+  background: #6495ED22;
+  border-color: #6495ED66;
+  color: #e8e8e8;
+}
+
+.path-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 5px currentColor;
+}
+
+/* ── Request-path tree (hops + metadata) ────────── */
+.path-tree, .step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.path-tree .path-item { flex: 1; }
+
+.step-list {
+  margin-top: 3px;
+  padding-left: 14px;
+}
+
+.step-label {
+  flex: 1;
+  font-size: 11.5px;
+  color: #bbb;
+  padding: 4px 2px;
+}
+
+.step-meta {
+  margin: 3px 0 6px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.step-meta-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-meta-key {
+  color: #6f7290;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.step-meta-val {
+  color: #c7cbe0;
+  font-size: 11.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-word;
+}
+
+.step-meta-empty {
+  color: #666;
+  font-style: italic;
+  margin-left: 30px;
+  font-size: 11px;
+}
+
+.step-order {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 9.5px;
+  font-weight: 700;
+  background: #0a0e1a;
+}

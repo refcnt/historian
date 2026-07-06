@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { InfoBlock, TabContent } from '../models'
+import type { InfoBlock, TabContent } from '@common/models'
 
 function TabBody({ content }: { content: TabContent }) {
   switch (content.type) {

@@ -1,27 +1,28 @@
-export type Pos  = { x: number; y: number }
-export type Dims = { w: number; h: number }
+import { Position, Size } from '@common/layout/layout'
+
+export { Position, Size }
 
 export function truncate(s: string, max: number): string {
   return s.length > max ? s.slice(0, max - 1) + '…' : s
 }
 
-export function edgePt(cx: number, cy: number, d: Dims, tx: number, ty: number): Pos {
+export function edgePt(cx: number, cy: number, d: Size, tx: number, ty: number): Position {
   const dx = tx - cx, dy = ty - cy
   const len = Math.sqrt(dx * dx + dy * dy)
-  if (len < 1) return { x: cx, y: cy }
+  if (len < 1) return new Position(cx, cy)
   const ux = dx / len, uy = dy / len
   const t = Math.min(
     ux ? (d.w / 2 + 8) / Math.abs(ux) : Infinity,
     uy ? (d.h / 2 + 8) / Math.abs(uy) : Infinity,
   )
-  return { x: cx + ux * t, y: cy + uy * t }
+  return new Position(cx + ux * t, cy + uy * t)
 }
 
 function curveParams(x1: number, y1: number, x2: number, y2: number): { qx: number; qy: number } {
   const mx = (x1 + x2) / 2, my = (y1 + y2) / 2
   const dx = x2 - x1, dy = y2 - y1
   const len = Math.sqrt(dx * dx + dy * dy) || 0.01
-  const lift = Math.max(Math.min(len * 0.22, 60), 28)
+  const lift = Math.min(len * 0.22, 60)
   let px = -dy / len, py = dx / len
   if (py < 0 || (py === 0 && px < 0)) { px = -px; py = -py }
   return { qx: mx + px * lift, qy: my + py * lift }

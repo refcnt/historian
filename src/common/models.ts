@@ -16,20 +16,19 @@ export interface InfoBlock {
   tabs: Tab[]
 }
 
+export interface Location {
+  lat:   number
+  lon:   number
+  zoom:  number
+  iso?:  string[]
+}
+
 export interface Node {
   id:        Id
   name:      string
   color?:    string
-  icon?:     string
-  weight?:   number
-  minSize?:  number
-  fontSize?:   number
-  fontColor?:  string
-  fontFamily?: string
-  location?: { lat: number; lon: number; zoom: number; iso?: string[] }
-  info?:     InfoBlock
-  fromTs?:   Timestamp
-  toTs?:     Timestamp
+  location?: Location
+  level:     number
   parent?:   Node
   children:  Node[]
 }
@@ -39,17 +38,66 @@ export interface Connection {
   name:     string
   from:     Node
   to:       Node
-  color?:   string
-  weight?:  number
-  info?:    InfoBlock
-  fromTs?:  Timestamp
-  toTs?:    Timestamp
+  level:    number
   parent?:  Connection
   children: Connection[]
 }
 
+export interface MapRendererProps {
+  nodes:       Node[]
+  connections: Connection[]
+  info:        Record<string, InfoBlock>
+  config:      Record<string, unknown>
+  focusedNode: Node | null
+  onHover:     (item: Node | Connection | null) => void
+  onSelect:    (node: Node) => void
+  // Connections are hidden unless they touch one of these nodes (null/empty = show all).
+  activeNodeIds?: Set<Id> | null
+  // The renderer reports its current level + that level's nodes back to the shell.
+  onLevelChange?: (level: number, nodes: Node[]) => void
+  // Active request paths, highlighted as an overlay (resolved per level by the renderer).
+  activePaths?: RequestPath[]
+}
+
+/** Everything a map-specific sidebar may need from the shared shell. */
+export interface SidebarProps {
+  data:           ExplorerData
+  currLevel:      number
+  activeNodeIds:  Set<Id> | null
+  focusedNode:    Node | null
+  activePathIds:  Set<Id>
+  onFocus:        (node: Node | null) => void
+  onToggleActive: (id: Id) => void
+  onResetActive:  () => void
+  onTogglePath:   (id: Id) => void
+}
+
+/** One hop of a request path (a directed edge between two nodes) plus its metadata. */
+export interface RequestStep {
+  from:         Id
+  to:           Id
+  method?:      string
+  path?:        string
+  queryParams?: Record<string, string>
+  headers?:     Record<string, string>
+  reqPerSec?:   number
+  bytesPerSec?: number
+}
+
+/** A named request flow highlighted across the map in its own color. */
+export interface RequestPath {
+  id:     Id
+  name:   string
+  color?: string
+  steps:  RequestStep[]
+}
+
+
 export interface ExplorerData {
+  mapType:     string
   nodes:       Map<Id, Node>
   connections: Map<Id, Connection>
+  info:        Record<Id, InfoBlock>
   config:      Record<string, unknown>
+  paths:       RequestPath[]
 }

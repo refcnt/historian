@@ -1,39 +1,7 @@
 import type { Node, Connection } from '@common/models'
+import { Position, Size } from '@common/layout/layout'
 
-class Position {
-    constructor(public x: number, public y: number) {}
-
-    distanceTo(other: Position): number {
-        const dx = this.x - other.x
-        const dy = this.y - other.y
-        return Math.sqrt(dx * dx + dy * dy)
-    }
-
-    translate(dx: number, dy: number): Position {
-        return new Position(this.x + dx, this.y + dy)
-    }
-
-    scale(s: number): Position {
-        return new Position(this.x * s, this.y * s)
-    }
-}
-
-class Size {
-    constructor(public w: number, public h: number) {}
-
-    radius(): number {
-        return Math.max(this.w, this.h) / 2
-    }
-
-    scale(s: number): Size {
-        return new Size(this.w * s, this.h * s)
-    }
-
-    contains(pos: Position, center: Position): boolean {
-        return Math.abs(pos.x - center.x) <= this.w / 2
-            && Math.abs(pos.y - center.y) <= this.h / 2
-  }
-}
+export { Position, Size }
 
 export class ItemLayout {
     position: Position
@@ -52,7 +20,7 @@ export class ItemLayout {
 }
 
 export interface LayoutAlgorithm {
-  compute(nodes: Node[][], connections: Connection[][]):  Map<string, ItemLayout>
+  compute(nodes: Node[], connections: Connection[]):  Map<string, ItemLayout>
 }
 
 export abstract class BaseLayout implements LayoutAlgorithm {
@@ -72,5 +40,5 @@ export abstract class BaseLayout implements LayoutAlgorithm {
     return pairs
   }
 
-  abstract compute(nodes: Node[][], connections: Connection[][]): Map<string, ItemLayout>
+  abstract compute(nodes: Node[], connections: Connection[]): Map<string, ItemLayout>
 }

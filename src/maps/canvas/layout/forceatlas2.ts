@@ -1,28 +1,14 @@
 import Graph from 'graphology'
 import forceAtlas2 from 'graphology-layout-forceatlas2'
-import type { Node, Connection } from '../../../common/models'
+import type { Node, Connection } from '@common/models'
 import { BaseLayout, ItemLayout } from './base'
-import { ICON_SIZE, CHILD_LABEL } from '../constants'
-
-function seededRng(seed: number) {
-  let s = Math.abs(seed) | 1
-  return () => {
-    s = (Math.imul(1664525, s) + 1013904223) & 0xffffffff
-    return (s >>> 0) / 0xffffffff
-  }
-}
-
-function hashStr(s: string): number {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0
-  return h
-}
+import { ICON_SIZE, CHILD_LABEL } from '@maps/canvas/constants'
+import { hashStr, seededRng } from '@common/layout/utils'
 
 export class ForceAtlas2Layout extends BaseLayout {
-  compute(nodesByLevel: Node[][], connectionsByLevel: Connection[][]): Map<string, ItemLayout> {
-    const nodes       = nodesByLevel.flat()
-    const connections = connectionsByLevel.flat()
-    const levelMap    = new Map(nodesByLevel.flatMap((lvl, i) => lvl.map(n => [n.id, i])))
+  compute(nodes: Node[], connections: Connection[]): Map<string, ItemLayout> {
+    const getLevel = (n: Node): number => n.parent ? getLevel(n.parent) + 1 : 0
+    const levelMap = new Map(nodes.map(n => [n.id, getLevel(n)]))
     const sizes       = new Map(nodes.map(n => [n.id, { w: ICON_SIZE, h: ICON_SIZE + CHILD_LABEL }]))
     if (nodes.length === 0) return new Map()
 

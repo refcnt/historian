@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from 'react'
-import type { MapRendererProps } from '../../common/panels/builder'
-import type { Node, Connection } from '../../common/models'
+import type { MapRendererProps } from '@common/models'
+import type { Node, Connection } from '@common/models'
 import type { GeoLocation } from './models'
 import GeoMap from './geo_map'
 import type { GeoData, MapLabel } from './geo_map'
@@ -109,7 +109,7 @@ export default function GeoRenderer({
       return [{
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: computeArc([src.lon, src.lat], [tgt.lon, tgt.lat]) },
-        properties: { _id: c.id, _name: c.name, _color: c.color ?? '#888888' },
+        properties: { _id: c.id, _name: c.name, _color: '#888888' },
       }]
     })
     return { type: 'FeatureCollection', features }
@@ -121,7 +121,7 @@ export default function GeoRenderer({
       const tgt = geoLoc(c.to)
       if (!src || !tgt) return []
       const [lon, lat] = arcMidpoint([src.lon, src.lat], [tgt.lon, tgt.lat])
-      return [{ lat, lon, text: c.name, fontSize: 10, color: c.color ?? '#ccc', bold: false }]
+      return [{ lat, lon, text: c.name, fontSize: 10, color: '#ccc', bold: false }]
     })
   ), [connections])
 

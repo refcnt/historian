@@ -7,6 +7,12 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@common': resolve(__dirname, 'src/common'),
+      '@maps':   resolve(__dirname, 'src/maps'),
+    },
+  },
   plugins: [
     react(),
     {

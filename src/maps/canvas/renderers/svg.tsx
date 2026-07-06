@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { MapRendererProps } from '../../../common/panels/builder'
-import type { Node, Connection } from '../../../common/models'
-import { colorForId } from '../../../common/styles/color_generator'
-import { CARD_W, CARD_H } from '../constants'
+import type { MapRendererProps } from '@common/models'
+import type { Node, Connection } from '@common/models'
+import { colorForId } from '@common/styles/color_generator'
+import { CARD_W, CARD_H, ICON_SIZE, GROUP_FONT, LEAF_FONT } from '@maps/canvas/constants'
 import { truncate, edgePt, curvePath, curveMid } from './utils'
 import { BaseRenderer } from './base'
+import type { PathEdgeGroup } from './base'
 import { RendererContainer } from './base.tsx'
-import type { ItemLayout } from '../layout/base'
+import type { ItemLayout } from '@maps/canvas/layout/base'
 
 // ── SVGRenderer class ─────────────────────────────────────────────────────────
 
@@ -77,9 +78,9 @@ function renderGroup(n: Node, l: ItemLayout, r: SVGRenderer) {
                 fill={color} fillOpacity={isDim ? 0.18 : hovered ? 0.80 : 0.62}
                 stroke={color} strokeOpacity={isDim ? 0.35 : 1} strokeWidth={hovered ? 3 : 2}
             />
-            <text x={w/2} y={15} textAnchor="middle" dominantBaseline="middle"
+            <text x={w/2} y={GROUP_FONT + 4} textAnchor="middle" dominantBaseline="middle"
                 fill={isDim ? color : '#ffffff'} opacity={opacity}
-                fontSize={n.fontSize ?? 11} fontWeight={600} fontFamily={n.fontFamily ?? 'system-ui, sans-serif'}
+                fontSize={GROUP_FONT} fontWeight={600} fontFamily="system-ui, sans-serif"
             >
                 {n.name}
             </text>
@@ -87,20 +88,25 @@ function renderGroup(n: Node, l: ItemLayout, r: SVGRenderer) {
     )
 }
 
+const STRIPE = 10 // px dash length for interleaving multiple path colours on a shared edge
+
 function renderConnection(c: Connection, la: ItemLayout, lb: ItemLayout, r: SVGRenderer) {
     const ep1      = edgePt(la.position.x, la.position.y, la.size, lb.position.x, lb.position.y)
     const ep2      = edgePt(lb.position.x, lb.position.y, lb.size, la.position.x, la.position.y)
     const hov      = r.hoveredId === c.id
     const d        = curvePath(ep1.x, ep1.y, ep2.x, ep2.y)
     const [lx, ly] = curveMid(ep1.x, ep1.y, ep2.x, ep2.y)
+
+    const baseOpacity = r.pathsActive() && !hov ? 0.1 : hov ? 1 : 0.75
+
     return (
         <g key={c.id}
             onMouseEnter={() => { r.setHovered(c.id); r.onHover(c) }}
             onMouseLeave={() => { r.setHovered(null); r.onHover(null) }}
         >
             <path d={d} stroke="transparent" strokeWidth={14} fill="none" />
-            <path d={d} stroke={c.color ?? '#aab'} strokeWidth={hov ? 3 : 2.2}
-                strokeOpacity={hov ? 1 : 0.75} fill="none" markerEnd="url(#arrow)" />
+            <path d={d} stroke="#aab" strokeWidth={hov ? 3 : 2.2}
+                strokeOpacity={baseOpacity} fill="none" markerEnd="url(#arrow)" />
             {hov && <>
                 <rect x={lx - c.name.length * 3.3 - 6} y={ly - 10}
                     width={c.name.length * 6.6 + 12} height={17} rx={3} fill="rgba(0,0,0,0.8)" />
@@ -112,11 +118,50 @@ function renderConnection(c: Connection, la: ItemLayout, lb: ItemLayout, r: SVGR
     )
 }
 
+// A request-path hop resolved to the current level: a coloured overlay between the
+// two representative nodes' boxes, with an order badge (or stacked badges/stripes
+// when several paths share the same node pair).
+function renderPathEdge(g: PathEdgeGroup, r: SVGRenderer) {
+    const la = r.nodeIdLayoutMap.get(g.fromId)
+    const lb = r.nodeIdLayoutMap.get(g.toId)
+    if (!la || !lb) return null
+    const ep1      = edgePt(la.position.x, la.position.y, la.size, lb.position.x, lb.position.y)
+    const ep2      = edgePt(lb.position.x, lb.position.y, lb.size, la.position.x, la.position.y)
+    const d        = curvePath(ep1.x, ep1.y, ep2.x, ep2.y)
+    const [lx, ly] = curveMid(ep1.x, ep1.y, ep2.x, ep2.y)
+
+    const s = r.scale || 1
+    const rad = 8 / s, off = 20 / s, fsz = 10.5 / s, sw = 1.5 / s
+
+    return (
+        <g key={`${g.fromId}~${g.toId}`} style={{ pointerEvents: 'none' }}>
+            <path d={d} stroke={g.marks[0].color} strokeWidth={4} fill="none"
+                strokeLinecap="round" markerEnd="url(#arrow-ctx)" />
+            {g.marks.length > 1 && g.marks.map((m, i) => (
+                <path key={`s${i}`} d={d} stroke={m.color} strokeWidth={4} fill="none" strokeLinecap="round"
+                    strokeDasharray={`${STRIPE} ${STRIPE * (g.marks.length - 1)}`} strokeDashoffset={-i * STRIPE} />
+            ))}
+            {g.marks.map((m, j) => {
+                const bx = lx + (j - (g.marks.length - 1) / 2) * off
+                return (
+                    <g key={`b${j}`}>
+                        <circle cx={bx} cy={ly} r={rad} fill="#0a0e1a" stroke={m.color} strokeWidth={sw} />
+                        <text x={bx} y={ly + 0.5 / s} textAnchor="middle" dominantBaseline="middle"
+                            fill={m.color} fontSize={fsz} fontWeight={700} fontFamily="system-ui, sans-serif">
+                            {m.order}
+                        </text>
+                    </g>
+                )
+            })}
+        </g>
+    )
+}
+
 function renderLeaf(n: Node, l: ItemLayout, r: SVGRenderer) {
     const { x, y }  = l.position
     const hovered   = r.hoveredId === n.id
     const color     = n.color ?? colorForId(n.id)
-    const iconSize  = 28
+    const iconSize  = ICON_SIZE
     return (
         <g key={n.id} transform={`translate(${x},${y})`} style={{ cursor: 'pointer' }}
             onMouseDown={e => e.stopPropagation()}
@@ -128,13 +173,10 @@ function renderLeaf(n: Node, l: ItemLayout, r: SVGRenderer) {
                 fill={color} fillOpacity={hovered ? 0.95 : 0.82}
                 stroke={color} strokeWidth={hovered ? 2 : 1}
             />
-            {n.icon
-                ? <image href={n.icon} x={-iconSize/2} y={-CARD_H/2 + 8} width={iconSize} height={iconSize} />
-                : <circle r={iconSize/2} cy={-CARD_H/2 + 8 + iconSize/2}
-                    fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" strokeWidth={1.2} />
-            }
-            <text x={0} y={CARD_H/2 - 10} textAnchor="middle" dominantBaseline="middle"
-                fill="#ffffff" fontSize={n.fontSize ?? 9} fontWeight={600} fontFamily={n.fontFamily ?? 'system-ui, sans-serif'}
+            <circle r={iconSize/2} cy={-CARD_H/4}
+                fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" strokeWidth={1.2} />
+            <text x={0} y={CARD_H/2 - 16} textAnchor="middle" dominantBaseline="middle"
+                fill="#ffffff" fontSize={LEAF_FONT} fontWeight={600} fontFamily="system-ui, sans-serif"
             >
                 {truncate(n.name, 16)}
             </text>
@@ -145,7 +187,7 @@ function renderLeaf(n: Node, l: ItemLayout, r: SVGRenderer) {
 // ── React wrapper ─────────────────────────────────────────────────────────────
 
 export default function SVGRendererComponent({
-    nodes, connections, config, focusedNode, onHover, onSelect,
+    nodes, connections, config, focusedNode, activeNodeIds, activePaths, onLevelChange, onHover, onSelect,
 }: MapRendererProps) {
     const svgRef      = useRef<SVGSVGElement>(null)
     const rendererRef = useRef<SVGRenderer | null>(null)
@@ -160,6 +202,11 @@ export default function SVGRendererComponent({
 
     const renderer = rendererRef.current!
 
+    // React → renderer: current connection filter + level-change callback + active paths.
+    renderer.activeNodeIds = activeNodeIds ?? null
+    renderer.activePaths   = activePaths ?? []
+    renderer.onLevelChange = onLevelChange
+
     renderer.getViewportSize = () => {
         if (!svgRef.current) return { width: 0, height: 0 }
         const r = svgRef.current.getBoundingClientRect()
@@ -167,6 +214,7 @@ export default function SVGRendererComponent({
     }
 
     useEffect(() => {
+        renderer.emitLevel() // report the initial level to the shell
         renderer.rebuildViewAndApply(renderer.visibleNodes())
     }, []) // eslint-disable-line
 
@@ -206,8 +254,15 @@ export default function SVGRendererComponent({
                 onMouseLeave={handleMouseUp} onWheel={handleWheel}
             >
                 <defs>
-                    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                        <polygon points="0 0, 10 3.5, 0 7" fill="#888" fillOpacity="0.85" />
+                    <marker id="arrow" markerWidth="7" markerHeight="7" refX="5.6" refY="3.5"
+                        orient="auto" markerUnits="userSpaceOnUse">
+                        <path d="M1,1 L5.5,3.5 L1,6" fill="none" stroke="#8a90b0"
+                            strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                    </marker>
+                    <marker id="arrow-ctx" markerWidth="9" markerHeight="9" refX="7" refY="4.5"
+                        orient="auto" markerUnits="userSpaceOnUse">
+                        <path d="M1.5,1.5 L7,4.5 L1.5,7.5" fill="none" stroke="context-stroke"
+                            strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </marker>
                 </defs>
                 <g transform={`translate(${pan.x},${pan.y}) scale(${scale})`}>
@@ -231,6 +286,7 @@ export default function SVGRendererComponent({
                         const l = renderer.nodeIdLayoutMap.get(n.id)
                         return l ? renderLeaf(n, l, renderer) : null
                     })}
+                    {renderer.pathEdgeGroups().map(g => renderPathEdge(g, renderer))}
                 </g>
             </svg>
         </RendererContainer>

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import * as PIXI from 'pixi.js'
-import type { MapRendererProps } from '../../../common/panels/builder'
-import type { Node, Connection } from '../../../common/models'
-import { colorForId } from '../../../common/styles/color_generator'
-import { CARD_W, CARD_H } from '../constants'
+import type { MapRendererProps } from '@common/models'
+import type { Node, Connection } from '@common/models'
+import { colorForId } from '@common/styles/color_generator'
+import { CARD_W, CARD_H, ICON_SIZE, GROUP_FONT, LEAF_FONT } from '@maps/canvas/constants'
 import { truncate, edgePt, curveCtrl, curveMid } from './utils'
 import { BaseRenderer } from './base'
 import { RendererContainer } from './base.tsx'
@@ -134,6 +134,7 @@ class PixiRenderer extends BaseRenderer {
         this.drawGroups()
         this.drawConnections()
         this.drawLeaves()
+        this.drawPathEdges()
     }
 
     // ── Draw helpers ──────────────────────────────────────────────────────────
@@ -155,13 +156,15 @@ class PixiRenderer extends BaseRenderer {
                 .stroke({ color: col, alpha: isDim ? 0.35 : 1, width: hov ? 3 : 2 })
             this.world!.addChild(g)
 
+            const fontSize = GROUP_FONT
             const label = new PIXI.Text({
                 text: n.name,
-                style: { fill: isDim ? numToHex(col) : '#ffffff', fontSize: n.fontSize ?? 11, fontWeight: '600', fontFamily: n.fontFamily ?? 'system-ui, sans-serif' },
+                style: { fill: isDim ? numToHex(col) : '#ffffff', fontSize, fontWeight: '600', fontFamily: 'system-ui, sans-serif' },
+                resolution: 2,
             })
             label.alpha = opacity
             label.anchor.set(0.5, 0.5)
-            label.position.set(x, y - h/2 + 16)
+            label.position.set(x, y - h/2 + fontSize)
             this.world!.addChild(label)
 
             if (!isDim) {
@@ -194,8 +197,8 @@ class PixiRenderer extends BaseRenderer {
             const ep2      = edgePt(lb.position.x, lb.position.y, lb.size, la.position.x, la.position.y)
             const [qx, qy] = curveCtrl(ep1.x, ep1.y, ep2.x, ep2.y)
             const hov      = this.hoveredId === c.id
-            const col      = cssToNum(c.color ?? '#aab')
-            const alpha    = hov ? 1 : 0.75
+            const col      = cssToNum('#aab')
+            const alpha    = this.pathsActive() && !hov ? 0.1 : hov ? 1 : 0.75
             const width    = hov ? 3 : 2.2
 
             const g = new PIXI.Graphics()
@@ -230,7 +233,7 @@ class PixiRenderer extends BaseRenderer {
     }
 
     private drawLeaves(): void {
-        const iconSize = 28
+        const iconSize = ICON_SIZE
         for (const n of this.visibleNodes().filter(n => n.children.length === 0)) {
             const layout = this.nodeIdLayoutMap.get(n.id)
             if (!layout) continue
@@ -242,17 +245,18 @@ class PixiRenderer extends BaseRenderer {
             g.roundRect(x - CARD_W/2, y - CARD_H/2, CARD_W, CARD_H, 8)
                 .fill({ color: col, alpha: hov ? 0.95 : 0.82 })
                 .stroke({ color: col, alpha: 1, width: hov ? 2 : 1 })
-            g.circle(x, y - CARD_H/2 + 8 + iconSize/2, iconSize/2)
+            g.circle(x, y - CARD_H/4, iconSize/2)
                 .fill({ color: 0xffffff, alpha: 0.25 })
                 .stroke({ color: 0xffffff, alpha: 0.6, width: 1.2 })
             this.world!.addChild(g)
 
             const lbl = new PIXI.Text({
                 text: truncate(n.name, 16),
-                style: { fill: '#ffffff', fontSize: n.fontSize ?? 9, fontWeight: '600', fontFamily: 'system-ui, sans-serif' },
+                style: { fill: '#ffffff', fontSize: LEAF_FONT, fontWeight: '600', fontFamily: 'system-ui, sans-serif' },
+                resolution: 2,
             })
             lbl.anchor.set(0.5, 0.5)
-            lbl.position.set(x, y + CARD_H/2 - 10)
+            lbl.position.set(x, y + CARD_H/2 - 16)
             this.world!.addChild(lbl)
 
             const hit = new PIXI.Graphics()
@@ -266,12 +270,50 @@ class PixiRenderer extends BaseRenderer {
             this.world!.addChild(hit)
         }
     }
+
+    private drawPathEdges(): void {
+        for (const grp of this.pathEdgeGroups()) {
+            const la = this.nodeIdLayoutMap.get(grp.fromId)
+            const lb = this.nodeIdLayoutMap.get(grp.toId)
+            if (!la || !lb) continue
+            const ep1      = edgePt(la.position.x, la.position.y, la.size, lb.position.x, lb.position.y)
+            const ep2      = edgePt(lb.position.x, lb.position.y, lb.size, la.position.x, la.position.y)
+            const [qx, qy] = curveCtrl(ep1.x, ep1.y, ep2.x, ep2.y)
+            const col      = cssToNum(grp.marks[0].color)
+
+            const g = new PIXI.Graphics()
+            g.moveTo(ep1.x, ep1.y).quadraticCurveTo(qx, qy, ep2.x, ep2.y).stroke({ color: col, alpha: 1, width: 4 })
+            const tlen = Math.sqrt((ep2.x - qx) ** 2 + (ep2.y - qy) ** 2) || 1
+            const tx = (ep2.x - qx) / tlen, ty = (ep2.y - qy) / tlen
+            g.moveTo(ep2.x, ep2.y)
+                .lineTo(ep2.x - tx*11 - ty*5.5, ep2.y - ty*11 + tx*5.5)
+                .lineTo(ep2.x - tx*11 + ty*5.5, ep2.y - ty*11 - tx*5.5)
+                .closePath().fill({ color: col, alpha: 1 })
+            this.world!.addChild(g)
+
+            const [lx, ly] = curveMid(ep1.x, ep1.y, ep2.x, ep2.y)
+            grp.marks.forEach((m, j) => {
+                const bx = lx + (j - (grp.marks.length - 1) / 2) * 18
+                const badge = new PIXI.Graphics()
+                badge.circle(bx, ly, 9).fill({ color: 0x0a0e1a, alpha: 1 }).stroke({ color: cssToNum(m.color), width: 1.5 })
+                this.world!.addChild(badge)
+                const t = new PIXI.Text({
+                    text: String(m.order),
+                    style: { fill: m.color, fontSize: 11, fontWeight: '700', fontFamily: 'system-ui, sans-serif' },
+                    resolution: 2,
+                })
+                t.anchor.set(0.5, 0.5)
+                t.position.set(bx, ly)
+                this.world!.addChild(t)
+            })
+        }
+    }
 }
 
 // ── React wrapper ─────────────────────────────────────────────────────────────
 
 export default function PixiRendererComponent({
-    nodes, connections, config, focusedNode, onHover, onSelect,
+    nodes, connections, config, focusedNode, activeNodeIds, activePaths, onLevelChange, onHover, onSelect,
 }: MapRendererProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const rendererRef  = useRef<PixiRenderer | null>(null)
@@ -287,8 +329,14 @@ export default function PixiRendererComponent({
         )
     }
 
+    // React → renderer: current connection filter + level-change callback + active paths.
+    rendererRef.current.activeNodeIds = activeNodeIds ?? null
+    rendererRef.current.activePaths   = activePaths ?? []
+    rendererRef.current.onLevelChange = onLevelChange
+
     useEffect(() => {
         rendererRef.current!.init(containerRef.current!)
+        rendererRef.current!.emitLevel()
         return () => rendererRef.current?.destroy()
     }, [])
 

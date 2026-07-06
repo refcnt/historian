@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import type { MapRendererProps } from '../../../common/panels/builder'
+import type { MapRendererProps } from '@common/models'
 import SVGRenderer  from './svg'
 import PixiRenderer from './pixi'
 
